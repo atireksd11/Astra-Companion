@@ -1,0 +1,43 @@
+# Secrets & environment
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+
+# Firmware / PlatformIO
+.pio/
+.vscode/.browse.c_vsc*
+.vscode/c_cpp_properties.json
+.vscode/launch.json
+.vscode/ipch
+
+# KiCad / EasyEDA
+*-backups/
+*.kicad_prl
+fp-info-cache
+
+# Build artifacts
+build/
+dist/
+*.o
+*.elf
+*.bin
+*.hex
+
+# OS & editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+
+# Python (Extrude AI harness)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# 3D CAD exports (keep source files, ignore heavy meshes if needed)
+# *.stl
