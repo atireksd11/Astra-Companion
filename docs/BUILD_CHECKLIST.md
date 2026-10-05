@@ -1,12 +1,12 @@
-# Astra Companion — Build Journal
+# Astra Companion — Local Build Checklist
 
-Hack Club On-Board progress log. Target: 17+ hours logged before grant submission.
+> Personal working checklist. The official Hack Club devlog lives in [`JOURNAL.md`](../JOURNAL.md) (synced from Half Life).
 
-## Log
+Target: 17+ hours logged before grant submission.
 
-### Week 1 — PCB Design
+## Week 1 — PCB Design
 
-- [ ] Repository initialized
+- [x] Repository initialized
 - [ ] ESP32-S3 schematic symbol placed
 - [ ] DRV8833 motor driver connected
 - [ ] MPU6050 I2C bus wired (SDA/SCL + pull-ups)
