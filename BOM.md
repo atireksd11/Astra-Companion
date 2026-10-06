@@ -4,46 +4,10 @@
 <!-- Generated: 1970-01-01T00:00:00.000Z -->
 
 > [!NOTE]
-> Half Life overwrites this file. the real list is [`hardware/BOM.md`](hardware/BOM.md).
+> This parts list is mirrored from [Half Life](https://halflife.hackclub.com). Editing it here will not change the platform's copy, and the next sync overwrites this file.
 
 | Week | Tier | Parts funding |
 | --- | --- | --- |
 | Week 1 | Tier 2 | $65.00 |
 
-### electronics
-
-| Part | Qty | Notes |
-| --- | --- | --- |
-| ESP32-S3 DevKit v1 | 1 | 2×22 female header on the pcb |
-| GY-521 MPU6050 | 1 | i2c gyro |
-| DRV8833 | 1 | motor driver |
-| N20 6V gearmotor | 2 | + 12mm N20-hub wheels |
-| GC9A01 1.28" round IPS | 1 | spi eyes, 8-pin header |
-| INMP441 | 1 | i2s mic |
-| MAX98357A | 1 | i2s amp (+ gain resistor if not on board) |
-| Treedix 8Ω mini speaker | 1 | JST-PH1.25 |
-| 18650 3.7V protected + holder | 1 | main battery |
-| TP4056 USB-C charger w/ protection | 1 | charging |
-| MT3608 boost | 1 | ~6V for motors |
-| AMS1117-3.3 | 1 | 3.3V rail + 10µF in/out |
-| SPDT slide switch | 1 | power on/off |
-| polyfuse ~1.5A | 1 | battery short protection |
-| 470µF electrolytic | 1 | motor rail bulk |
-| 100µF electrolytic | 1 | extra bulk |
-| 0.1µF ceramic | 8 | ics + across each motor |
-| 4.7kΩ resistor | 2 | i2c pullups |
-| JST-PH 2-pin | 4 | battery, speaker, motors |
-| module pin headers | bunch | gyro, drv, mic, amp, power boards |
-
-### mechanical / wiring / tools (not all grant-covered)
-
-| Part | Qty | Notes |
-| --- | --- | --- |
-| PLA or PETG filament | ~200g | body, brackets, bezel |
-| M3 6mm screws + standoffs | 4+4 | pcb mount |
-| M3 screws/nuts or heat-sets | 4 | motor brackets |
-| M2 / M1.6 motor screws | 4 | n20 mounts |
-| silicone wire 26–28 AWG | ~1m | motors to jst |
-| USB-C cable | 1 | flash + charge |
-| heat shrink + solder | — | joints |
-| soldering iron, strippers, multimeter | 1 | check 3.3V and 6V before plugging in the esp |
+_No parts listed yet._
