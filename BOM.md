@@ -4,10 +4,28 @@
 <!-- Generated: 1970-01-01T00:00:00.000Z -->
 
 > [!NOTE]
-> This parts list is mirrored from [Half Life](https://halflife.hackclub.com). Editing it here will not change the platform's copy, and the next sync overwrites this file.
+> Half Life overwrites this file. the list i actually maintain is [`hardware/BOM.md`](hardware/BOM.md).
 
 | Week | Tier | Parts funding |
 | --- | --- | --- |
 | Week 1 | Tier 2 | $65.00 |
 
-_No parts listed yet._
+| Part | Qty | Notes |
+| --- | --- | --- |
+| ESP32-S3 DevKit v1 | 1 | plugs into headers on the pcb |
+| GY-521 MPU6050 | 1 | i2c gyro |
+| DRV8833 | 1 | motor driver |
+| N20 6V gearmotor | 2 | + 12mm wheels |
+| GC9A01 1.28" round IPS | 1 | spi, 240x240 eyes |
+| INMP441 | 1 | i2s mic |
+| MAX98357A | 1 | i2s amp |
+| Treedix 8Ω mini speaker | 1 | JST-PH1.25 |
+| 18650 3.7V + holder | 1 | main battery |
+| TP4056 USB-C charger | 1 | charging |
+| MT3608 boost | 1 | ~6V for motors |
+| AMS1117-3.3 | 1 | 3.3V rail |
+| 100µF electrolytic | 1 | motor rail bulk cap |
+| 0.1µF ceramic | 6 | decoupling |
+| 4.7kΩ resistor | 2 | i2c pullups |
+| JST-PH 2-pin | 4 | battery, speaker, motors |
+| female headers | 2 | for the devkit |

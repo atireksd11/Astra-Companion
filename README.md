@@ -1,70 +1,43 @@
 # Astra Companion
 
-A 2-wheeled, self-balancing desktop AI companion robot built for the [Hack Club On-Board](https://onboard.hackclub.com/) 10-week challenge. AstraCompanion serves as the primary real-world dogfooding environment for [Extrude AI](https://github.com/atireksd11/Astra-Companion) — an LLM-powered hardware design and verification platform.
+desktop robot that balances on two wheels and talks.
 
-## Overview
+hack club onboard / hacklife, tier 2 ($65). custom 2-layer pcb this week.
 
-AstraCompanion sits vertically beside a desk, connects to WiFi, and acts as an expressive, voice-activated assistant. It balances on two N20 gear motors, displays animated pixel-art eyes on an OLED screen, and responds to its owner via cloud STT → LLM → TTS pipeline.
+the board is a carrier. ESP32-S3 DevKit v1 plugs into headers. motors, gyro, mic, speaker, round lcd, battery stuff all live on the pcb and connect with jst / headers so its not a rats nest.
 
-```
-                   ┌────────────────────────────────────────┐
-                   │         AstraCompanion Desktop         │
-                   └───────────────────┬────────────────────┘
-                                       │
-            ┌──────────────────────────┼──────────────────────────┐
-            ▼                          ▼                          ▼
-   [ Power & Processing ]    [ Motion & Sensing ]       [ Interface & Audio ]
-   - ESP32-S3 Dual-Core      - MPU6050 6-Axis Gyro      - 0.96" I2C OLED Screen
-   - 2S LiPo / USB-C         - DRV8833 H-Bridge Driver  - INMP441 I2S Digital Mic
-   - 3.3V/5V Buck Regulators - 2× N20 Metal Gear Motors - MAX98357A I2S Amp + 2W Spk
-```
+## whats on it
 
-## Hardware BOM
+- **brain:** ESP32-S3 DevKit v1 (core 0 = balance, core 1 = wifi/voice)
+- **balance:** GY-521 MPU6050 on i2c
+- **wheels:** DRV8833 + 2x N20 6V motors + 12mm rubber wheels
+- **eyes:** GC9A01 1.28" round ips, 240x240, spi
+- **voice:** INMP441 mic + MAX98357A amp + treedix 8ohm speaker
+- **power:** 18650, TP4056 usb-c charger, MT3608 boost to ~6V for motors, AMS1117-3.3 for the chips
 
-| Subsystem | Component |
-|-----------|-----------|
-| Brain | ESP32-S3 (dual-core, WiFi/BLE, I2S) |
-| Orientation | MPU6050 6-axis IMU (I2C) |
-| Motor drive | DRV8833 dual H-bridge |
-| Actuation | 2× N20 metal gear motors (50:1) |
-| Audio in | INMP441 I2S MEMS mic |
-| Audio out | MAX98357A I2S amp + 2W speaker |
-| Display | 0.96" SSD1306 OLED (128×64) |
-| PCB | Custom 2-layer FR4 (JLCPCB) |
-| Enclosure | 3D-printed Fusion 360 chassis |
+schematic-as-code is [`astracompanion.ato`](astracompanion.ato). real easyeda files go in `hardware/` once i actually draw it.
 
-## Firmware Architecture
-
-Dual-core FreeRTOS task split on ESP32-S3:
-
-- **Core 0** — Real-time balance loop: MPU6050 @ 100 Hz, PID control, DRV8833 PWM
-- **Core 1** — Async cloud & UI: WiFi, Whisper STT, LLM API, TTS playback, OLED eyes
-
-## Project Structure
+## repo
 
 ```
-├── firmware/          # ESP32-S3 PlatformIO / Arduino firmware
-├── hardware/          # KiCad/EasyEDA schematics, Gerbers, BOM
-├── cad/               # Fusion 360 enclosure & mechanical parts
-├── docs/              # Blueprint, journal, design notes
-└── extrude/           # Extrude AI verification harness (dogfooding)
+astracompanion.ato    # full netlist spec (start here)
+hardware/             # easyeda, gerbers, bom
+firmware/             # later, platformio
+cad/                  # later, fusion body
+docs/                 # pinout, checklist, notes
+extrude/              # dogfooding later, ignore for now
 ```
 
-## Hack Club Timeline
+## this week
 
-| Week | Milestone |
-|------|-----------|
-| W1 | PCB schematic & Gerber submission |
-| W2 | 3D CAD wheel hubs & motor mounts |
-| W3 | MPU6050 gyro breadboard test |
-| W4 | OLED eye expression rendering |
-| W5 | Full enclosure CAD assembly |
-| W6 | PCB assembly & power rail verification |
-| W7 | 3D print chassis |
-| W8 | Motor wiring & DRV8833 calibration |
-| W9 | WiFi + voice API integration |
-| W10 | Final assembly & demo video |
+pcb. schematic, layout, gerbers, jlcpcb cart. 2hrs a day.
 
-## License
+pinout is in [`docs/PINOUT.md`](docs/PINOUT.md). parts in [`hardware/BOM.md`](hardware/BOM.md).
 
-MIT
+## later weeks
+
+cad the body, print it, solder, pid, then the voice api. eyes are the round lcd now, not the tiny oled i originally wrote down.
+
+## license
+
+mit

@@ -12,10 +12,11 @@ credentials.json
 .vscode/launch.json
 .vscode/ipch
 
-# KiCad / EasyEDA
+# EasyEDA / KiCad
 *-backups/
 *.kicad_prl
 fp-info-cache
+*.zip.bak
 
 # Build artifacts
 build/
@@ -32,12 +33,9 @@ Thumbs.db
 *.swo
 .idea/
 
-# Python (Extrude AI harness)
+# Python
 __pycache__/
 *.py[cod]
 .venv/
 venv/
 *.egg-info/
-
-# 3D CAD exports (keep source files, ignore heavy meshes if needed)
-# *.stl

@@ -1,0 +1,295 @@
+#pragma experiment("BRIDGE_CONNECT")
+
+# AstraCompanion — full carrier-board spec
+# custom 2-layer pcb that the ESP32-S3 DevKit plugs into.
+# chassis / 3d print is cad, not this file.
+
+import Electrical
+import ElectricPower
+import ElectricLogic
+import I2C
+import I2S
+import SPI
+import Resistor
+import Capacitor
+
+
+# ---------------------------------------------------------------------------
+# parts (interfaces only — footprints get picked in easyeda)
+# ---------------------------------------------------------------------------
+
+module ESP32S3_DevKit_v1:
+    """ESP32-S3 DevKit v1. 16MB flash, 8MB psram. plugs in via headers."""
+    power_5v = new ElectricPower
+    power_3v3 = new ElectricPower
+
+    i2c = new I2C
+    i2s_mic = new I2S          # in from INMP441
+    i2s_amp = new I2S          # out to MAX98357A
+    spi = new SPI              # GC9A01 eyes
+
+    # motor pwm
+    ain1 = new ElectricLogic
+    ain2 = new ElectricLogic
+    bin1 = new ElectricLogic
+    bin2 = new ElectricLogic
+
+    # display extras (not part of SPI)
+    lcd_cs = new ElectricLogic
+    lcd_dc = new ElectricLogic
+    lcd_rst = new ElectricLogic
+    lcd_bl = new ElectricLogic
+
+    usb = new ElectricPower    # onboard usb-c on the devkit, for flashing
+
+
+module GY521_MPU6050:
+    """GY-521 breakout. tilt + gyro on i2c."""
+    power = new ElectricPower
+    i2c = new I2C
+    int = new ElectricLogic
+
+
+module DRV8833:
+    """dual h-bridge. logic @ 3.3v, motor rail from the boost."""
+    power_logic = new ElectricPower
+    power_motor = new ElectricPower
+    ain1 = new ElectricLogic
+    ain2 = new ElectricLogic
+    bin1 = new ElectricLogic
+    bin2 = new ElectricLogic
+    nSLEEP = new ElectricLogic
+    out_left_p = new Electrical
+    out_left_n = new Electrical
+    out_right_p = new Electrical
+    out_right_n = new Electrical
+
+
+module N20_Motor:
+    """6V n20 gearmotor + 12mm wheel. not on the pcb, jst/header out."""
+    p = new Electrical
+    n = new Electrical
+
+
+module GC9A01:
+    """1.28" round 240x240 ips. spi. the eye."""
+    power = new ElectricPower
+    spi = new SPI
+    cs = new ElectricLogic
+    dc = new ElectricLogic
+    rst = new ElectricLogic
+    bl = new ElectricLogic
+
+
+module INMP441:
+    """i2s mems mic."""
+    power = new ElectricPower
+    i2s = new I2S
+
+
+module MAX98357A:
+    """i2s class-d amp."""
+    power = new ElectricPower
+    i2s = new I2S
+    spk_p = new Electrical
+    spk_n = new Electrical
+
+
+module MiniSpeaker_8ohm:
+    """treedix mini 8ohm, jst-ph1.25."""
+    p = new Electrical
+    n = new Electrical
+
+
+module TP4056:
+    """usb-c lipo charger."""
+    usb = new ElectricPower
+    battery = new ElectricPower
+    out = new ElectricPower        # protected cell output (B+ / B-)
+
+
+module MT3608:
+    """boost. battery -> ~6v for the n20s."""
+    vin = new ElectricPower
+    vout = new ElectricPower
+
+
+module AMS1117_3V3:
+    """ldo. 6v in, 3.3v out for the chips."""
+    vin = new ElectricPower
+    vout = new ElectricPower
+
+
+module USBC_Connector:
+    """usb-c on the carrier, charge only. flashing stays on the devkit."""
+    power = new ElectricPower
+
+
+module JST_PH:
+    """2-pin jst. battery / speaker / motors."""
+    p = new Electrical
+    n = new Electrical
+
+
+module PinHeader_DevKit:
+    """female headers the devkit sits in."""
+    power_5v = new ElectricPower
+    power_3v3 = new ElectricPower
+
+
+# ---------------------------------------------------------------------------
+# the board
+# ---------------------------------------------------------------------------
+
+module AstraCompanion:
+    """
+    pin map (ESP32-S3 DevKit v1)
+
+    I2C  SDA=GPIO8   SCL=GPIO9          gyro + nothing else on i2c
+    SPI  SCLK=GPIO12 MOSI=GPIO11        GC9A01
+         CS=GPIO10   DC=GPIO13
+         RST=GPIO14  BL=GPIO21
+    I2S  BCLK=GPIO15 WS=GPIO16
+         SD_IN=GPIO17 (mic)  SD_OUT=GPIO18 (amp)
+    PWM  AIN1=GPIO4  AIN2=GPIO5         left n20
+         BIN1=GPIO6  BIN2=GPIO7         right n20
+
+    power tree
+      usb-c --> TP4056 --> 18650
+      18650 --> MT3608 --> 6V motor rail  (DRV8833 VM)
+      6V    --> AMS1117 --> 3.3V          (esp32 3v3, gyro, mic, lcd, pullups, drv logic)
+      amp sits on 3.3V so motor noise doesnt dump into the speaker as much
+      do NOT feed 6V into the devkit 5V pin. 3.3V pin only.
+    """
+
+    # --- instantiate everything ---
+    esp32 = new ESP32S3_DevKit_v1
+    gyro = new GY521_MPU6050
+    driver = new DRV8833
+    motor_left = new N20_Motor
+    motor_right = new N20_Motor
+    lcd = new GC9A01
+    mic = new INMP441
+    amp = new MAX98357A
+    speaker = new MiniSpeaker_8ohm
+    charger = new TP4056
+    boost = new MT3608
+    ldo = new AMS1117_3V3
+    usbc = new USBC_Connector
+    jst_battery = new JST_PH
+    jst_speaker = new JST_PH
+    jst_motor_l = new JST_PH
+    jst_motor_r = new JST_PH
+    hdr = new PinHeader_DevKit
+
+    # --- rails ---
+    power_bat = new ElectricPower          # 18650, ~3.0-4.2V
+    power_motor = new ElectricPower        # ~6V after boost
+    power_3v3 = new ElectricPower          # 3.3V after ldo
+    assert power_3v3.voltage within 3.3V +/- 5%
+    assert power_motor.voltage within 5.5V to 6.5V
+
+    # --- charge: usb-c -> tp4056 -> cell ---
+    usbc.power ~ charger.usb
+    charger.battery ~ power_bat
+    jst_battery.p ~ power_bat.hv
+    jst_battery.n ~ power_bat.lv
+
+    # --- boost to 6V for motors ---
+    charger.out ~ power_bat
+    power_bat ~ boost.vin
+    boost.vout ~ power_motor
+
+    # --- 3.3V from the 6V rail (ams1117 dropout is fine off 6V, not off a dying cell) ---
+    power_motor ~ ldo.vin
+    ldo.vout ~ power_3v3
+
+    # --- who drinks 3.3V ---
+    power_3v3 ~ esp32.power_3v3
+    power_3v3 ~ hdr.power_3v3
+    power_3v3 ~ gyro.power
+    power_3v3 ~ driver.power_logic
+    power_3v3 ~ lcd.power
+    power_3v3 ~ mic.power
+    power_3v3 ~ amp.power
+
+    # --- who drinks 6V ---
+    power_motor ~ driver.power_motor
+
+    # --- bulk cap on the motor rail so a stall doesnt brown out the esp ---
+    bulk_100u = new Capacitor
+    bulk_100u.capacitance = 100uF +/- 20%
+    power_motor.hv ~> bulk_100u ~> power_motor.lv
+
+    # tiny ceramics next to the chips (0.1u)
+    dec_esp = new Capacitor
+    dec_gyro = new Capacitor
+    dec_drv = new Capacitor
+    dec_lcd = new Capacitor
+    dec_mic = new Capacitor
+    dec_amp = new Capacitor
+    dec_esp.capacitance = 0.1uF +/- 20%
+    dec_gyro.capacitance = 0.1uF +/- 20%
+    dec_drv.capacitance = 0.1uF +/- 20%
+    dec_lcd.capacitance = 0.1uF +/- 20%
+    dec_mic.capacitance = 0.1uF +/- 20%
+    dec_amp.capacitance = 0.1uF +/- 20%
+    power_3v3.hv ~> dec_esp ~> power_3v3.lv
+    power_3v3.hv ~> dec_gyro ~> power_3v3.lv
+    power_3v3.hv ~> dec_drv ~> power_3v3.lv
+    power_3v3.hv ~> dec_lcd ~> power_3v3.lv
+    power_3v3.hv ~> dec_mic ~> power_3v3.lv
+    power_3v3.hv ~> dec_amp ~> power_3v3.lv
+
+    # --- i2c: gyro. 4.7k pullups to 3.3V ---
+    i2c_bus = new I2C
+    i2c_bus.frequency = 400kHz
+    esp32.i2c ~ i2c_bus
+    gyro.i2c ~ i2c_bus
+
+    sda_pu = new Resistor
+    scl_pu = new Resistor
+    sda_pu.resistance = 4.7kohm +/- 5%
+    scl_pu.resistance = 4.7kohm +/- 5%
+    i2c_bus.sda.line ~> sda_pu ~> power_3v3.hv
+    i2c_bus.scl.line ~> scl_pu ~> power_3v3.hv
+
+    # --- spi + gpio: round lcd (eyes) ---
+    spi_bus = new SPI
+    esp32.spi ~ spi_bus
+    lcd.spi ~ spi_bus
+    esp32.lcd_cs ~ lcd.cs
+    esp32.lcd_dc ~ lcd.dc
+    esp32.lcd_rst ~ lcd.rst
+    esp32.lcd_bl ~ lcd.bl
+
+    # --- i2s: mic in, amp out (shared clocks, seperate data) ---
+    i2s_mic = new I2S
+    i2s_amp = new I2S
+    esp32.i2s_mic ~ i2s_mic
+    mic.i2s ~ i2s_mic
+    esp32.i2s_amp ~ i2s_amp
+    amp.i2s ~ i2s_amp
+
+    # --- pwm: drv8833 ---
+    esp32.ain1 ~ driver.ain1
+    esp32.ain2 ~ driver.ain2
+    esp32.bin1 ~ driver.bin1
+    esp32.bin2 ~ driver.bin2
+    driver.nSLEEP.line ~ power_3v3.hv     # keep the driver awake
+
+    # --- motors off-board via jst ---
+    driver.out_left_p ~ jst_motor_l.p
+    driver.out_left_n ~ jst_motor_l.n
+    driver.out_right_p ~ jst_motor_r.p
+    driver.out_right_n ~ jst_motor_r.n
+    jst_motor_l.p ~ motor_left.p
+    jst_motor_l.n ~ motor_left.n
+    jst_motor_r.p ~ motor_right.p
+    jst_motor_r.n ~ motor_right.n
+
+    # --- speaker via jst-ph1.25 ---
+    amp.spk_p ~ jst_speaker.p
+    amp.spk_n ~ jst_speaker.n
+    jst_speaker.p ~ speaker.p
+    jst_speaker.n ~ speaker.n
