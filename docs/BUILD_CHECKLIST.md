@@ -6,7 +6,7 @@ target: 17h before they care. this week is pcb, ~2h a day.
 
 ## locked parts
 
-esp32-s3 devkit v1, gy-521, drv8833, 2x n20, gc9a01 round lcd, inmp441, max98357a, treedix speaker, 18650, tp4056, mt3608, ams1117-3.3, 100uF, 4.7k pullups, jst + headers.
+see `hardware/BOM.md`. electronics + switch/fuse/caps/headers, plus screws, filament, wire, iron, meter.
 
 ## today-ish
 
@@ -17,8 +17,8 @@ esp32-s3 devkit v1, gy-521, drv8833, 2x n20, gc9a01 round lcd, inmp441, max98357
 
 ## schematic
 
-- [ ] power: usb-c -> tp4056 -> 18650 -> mt3608 (6V) -> ams1117 (3.3V)
-- [ ] 100uF on 6V, 0.1uF by each chip
+- [ ] power: usb-c -> tp4056 -> 18650 -> fuse -> switch -> mt3608 (6V) -> ams1117 (3.3V)
+- [ ] 470uF+100uF on 6V, 10uF on ldo, 0.1uF by each chip + across motors
 - [ ] i2c gyro + 4.7k pullups
 - [ ] spi + dc/rst/bl for gc9a01
 - [ ] i2s mic and amp

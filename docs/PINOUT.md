@@ -30,15 +30,17 @@ i2c pullups: 4.7k on sda and scl to 3.3V.
 ## power
 
 ```
-usb-c  -->  TP4056  -->  18650
+usb-c  -->  TP4056  -->  18650 (protected)
                               \
-                               --> MT3608 -- 6V --> DRV8833 motor supply
-                                              |
-                                              --> AMS1117 -- 3.3V --> esp32 3v3, gyro, mic, amp, lcd, drv logic, pullups
+                               --> polyfuse --> slide switch --> MT3608 -- 6V --> DRV8833
+                                                                   |
+                                                                   --> AMS1117 -- 3.3V --> chips
 ```
 
-100µF on the 6V rail. 0.1µF next to each ic.
+470µF + 100µF on the 6V rail. 10µF on AMS1117 in/out. 0.1µF next to each ic and across each motor.
 
 devkit gets 3.3V on the 3V3 pin. **not** 6V on the 5V pin.
 
-flashing is still the usb-c on the devkit itself. carrier usb-c is just charging.
+flashing is still the usb-c on the devkit itself. tp4056 usb-c is just charging.
+
+lcd is an 8-pin header, not a jst. devkit is 2×22 female.

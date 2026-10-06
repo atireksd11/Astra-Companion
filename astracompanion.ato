@@ -91,6 +91,7 @@ module MAX98357A:
     """i2s class-d amp."""
     power = new ElectricPower
     i2s = new I2S
+    gain = new ElectricLogic
     spk_p = new Electrical
     spk_n = new Electrical
 
@@ -132,9 +133,31 @@ module JST_PH:
 
 
 module PinHeader_DevKit:
-    """female headers the devkit sits in."""
+    """female 2x22 2.54mm. the devkit sits in these."""
     power_5v = new ElectricPower
     power_3v3 = new ElectricPower
+
+
+module PinHeader_8:
+    """gc9a01. 8 pin, not a jst."""
+    power = new ElectricPower
+    spi = new SPI
+    cs = new ElectricLogic
+    dc = new ElectricLogic
+    rst = new ElectricLogic
+    bl = new ElectricLogic
+
+
+module SlideSwitch:
+    """spdt on/off. battery -> boost."""
+    a = new ElectricPower
+    b = new ElectricPower
+
+
+module Polyfuse:
+    """~1.5A on the cell output."""
+    a = new ElectricPower
+    b = new ElectricPower
 
 
 # ---------------------------------------------------------------------------
@@ -155,9 +178,9 @@ module AstraCompanion:
          BIN1=GPIO6  BIN2=GPIO7         right n20
 
     power tree
-      usb-c --> TP4056 --> 18650
-      18650 --> MT3608 --> 6V motor rail  (DRV8833 VM)
-      6V    --> AMS1117 --> 3.3V          (esp32 3v3, gyro, mic, lcd, pullups, drv logic)
+      usb-c --> TP4056 --> 18650 (protected cell)
+      18650 --> polyfuse --> slide switch --> MT3608 --> 6V  (DRV8833 VM)
+      6V    --> AMS1117 --> 3.3V   (esp32 3v3, gyro, mic, lcd, pullups, drv logic)
       amp sits on 3.3V so motor noise doesnt dump into the speaker as much
       do NOT feed 6V into the devkit 5V pin. 3.3V pin only.
     """
@@ -181,6 +204,9 @@ module AstraCompanion:
     jst_motor_l = new JST_PH
     jst_motor_r = new JST_PH
     hdr = new PinHeader_DevKit
+    lcd_hdr = new PinHeader_8
+    pwr_sw = new SlideSwitch
+    fuse = new Polyfuse
 
     # --- rails ---
     power_bat = new ElectricPower          # 18650, ~3.0-4.2V
@@ -195,14 +221,23 @@ module AstraCompanion:
     jst_battery.p ~ power_bat.hv
     jst_battery.n ~ power_bat.lv
 
-    # --- boost to 6V for motors ---
+    # --- fuse + switch then boost to 6V ---
     charger.out ~ power_bat
-    power_bat ~ boost.vin
+    power_bat ~ fuse.a
+    fuse.b ~ pwr_sw.a
+    pwr_sw.b ~ boost.vin
     boost.vout ~ power_motor
 
     # --- 3.3V from the 6V rail (ams1117 dropout is fine off 6V, not off a dying cell) ---
     power_motor ~ ldo.vin
     ldo.vout ~ power_3v3
+
+    ldo_in_cap = new Capacitor
+    ldo_out_cap = new Capacitor
+    ldo_in_cap.capacitance = 10uF +/- 20%
+    ldo_out_cap.capacitance = 10uF +/- 20%
+    ldo.vin.hv ~> ldo_in_cap ~> ldo.vin.lv
+    ldo.vout.hv ~> ldo_out_cap ~> ldo.vout.lv
 
     # --- who drinks 3.3V ---
     power_3v3 ~ esp32.power_3v3
@@ -216,9 +251,12 @@ module AstraCompanion:
     # --- who drinks 6V ---
     power_motor ~ driver.power_motor
 
-    # --- bulk cap on the motor rail so a stall doesnt brown out the esp ---
+    # --- bulk on the motor rail so a stall doesnt brown out the esp ---
+    bulk_470u = new Capacitor
     bulk_100u = new Capacitor
+    bulk_470u.capacitance = 470uF +/- 20%
     bulk_100u.capacitance = 100uF +/- 20%
+    power_motor.hv ~> bulk_470u ~> power_motor.lv
     power_motor.hv ~> bulk_100u ~> power_motor.lv
 
     # tiny ceramics next to the chips (0.1u)
@@ -254,14 +292,21 @@ module AstraCompanion:
     i2c_bus.sda.line ~> sda_pu ~> power_3v3.hv
     i2c_bus.scl.line ~> scl_pu ~> power_3v3.hv
 
-    # --- spi + gpio: round lcd (eyes) ---
+    # --- spi + gpio: round lcd (eyes) via 8-pin header ---
     spi_bus = new SPI
     esp32.spi ~ spi_bus
-    lcd.spi ~ spi_bus
-    esp32.lcd_cs ~ lcd.cs
-    esp32.lcd_dc ~ lcd.dc
-    esp32.lcd_rst ~ lcd.rst
-    esp32.lcd_bl ~ lcd.bl
+    lcd_hdr.spi ~ spi_bus
+    lcd_hdr.spi ~ lcd.spi
+    lcd_hdr.power ~ lcd.power
+    esp32.lcd_cs ~ lcd_hdr.cs
+    esp32.lcd_dc ~ lcd_hdr.dc
+    esp32.lcd_rst ~ lcd_hdr.rst
+    esp32.lcd_bl ~ lcd_hdr.bl
+    lcd_hdr.cs ~ lcd.cs
+    lcd_hdr.dc ~ lcd.dc
+    lcd_hdr.rst ~ lcd.rst
+    lcd_hdr.bl ~ lcd.bl
+    lcd_hdr.power ~ power_3v3
 
     # --- i2s: mic in, amp out (shared clocks, seperate data) ---
     i2s_mic = new I2S
@@ -270,6 +315,11 @@ module AstraCompanion:
     mic.i2s ~ i2s_mic
     esp32.i2s_amp ~ i2s_amp
     amp.i2s ~ i2s_amp
+
+    # gain: 100k to gnd (~15dB). skip this part if the breakout already soldered one
+    gain_r = new Resistor
+    gain_r.resistance = 100kohm +/- 5%
+    amp.gain.line ~> gain_r ~> power_3v3.lv
 
     # --- pwm: drv8833 ---
     esp32.ain1 ~ driver.ain1
@@ -287,6 +337,14 @@ module AstraCompanion:
     jst_motor_l.n ~ motor_left.n
     jst_motor_r.p ~ motor_right.p
     jst_motor_r.n ~ motor_right.n
+
+    # 0.1u across each motor, kills a chunk of pwm hash into the gyro
+    motcap_l = new Capacitor
+    motcap_r = new Capacitor
+    motcap_l.capacitance = 0.1uF +/- 20%
+    motcap_r.capacitance = 0.1uF +/- 20%
+    motor_left.p ~> motcap_l ~> motor_left.n
+    motor_right.p ~> motcap_r ~> motor_right.n
 
     # --- speaker via jst-ph1.25 ---
     amp.spk_p ~ jst_speaker.p
