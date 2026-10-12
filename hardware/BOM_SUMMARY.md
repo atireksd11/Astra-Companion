@@ -28,13 +28,30 @@ Half Life **adds every `Total Price`**, USD and CAD mixed → about **$95.92** a
 |------|--------|
 | 13% on **all** of $95.92 (if everything were taxable) | **$12.47** tax → **$108.39** total → **over $103** |
 | Max tax if parts stay $95.92 and total must be **≤ $103** | **$7.08** (you sponsor shipping) |
-| **13% HST in real life (Canada)** | Only on **Canadian store** subtotal **CAD 52.56** → **CAD 6.83** (not on the whole $96) |
+| **Real total tax (both buckets, ~13% HST/GST)** | See below → **~CAD 14.50** (≈ **USD 11**) |
 
-The old **“$5”** number was **five dollars of tax**, not **5%**. It was HST on CAD lines only, converted to USD (~$5). That was easy to misread.
+### Two tax buckets (you were right about USD)
 
-**Plan that fits $103:** you pay **all shipping** yourself. In Half Life **Tax & shipping** put **`7.00` USD** (≈ CAD 6.83 HST, rounded). Check: **$95.92 + $7.00 ≈ $102.92 ≤ $103**.
+| Where you buy | Subtotal | When tax hits | ~13% tax |
+|---------------|----------|---------------|----------|
+| **CAD stores** (Mouser.ca, Amazon.ca, Universal Solder, Addison, PiShop) | **CAD 52.56** | On the **invoice** at checkout | **CAD 6.83** |
+| **USD stores** shipped to Canada (LCSC, Adafruit, DigiKey) | **USD 43.36** (~**CAD 59** value) | Usually **not** on the US invoice; **CBSA / courier** charges **HST on import** (~13% of CAD value) | **~CAD 7.67** |
+| **Total tax you should plan for** | | | **~CAD 14.50** (≈ **USD 10.66**, say **USD 11**) |
 
-LCSC / Adafruit / DigiKey checkouts are **USD** and normally **no Ontario HST on that invoice** — so you do **not** put 13% on the full $96 in the form unless Hack Club tells you to treat the import total that way (that would need **~$4.80 less parts** to still land at $103 with full 13% tax).
+So yes: **CAD tax on CAD orders + import tax on USD orders** — not “USD = no tax.”
+
+### Half Life vs real life ($103 cap)
+
+| | Amount |
+|--|--------|
+| Parts (HL mixed sum) | **$95.92** |
+| **Real tax (both buckets)** | **~$11** |
+| **Honest total** | **~$107** (before shipping) |
+| **Max tax you can enter and stay ≤ $103** | **$7.08** (with parts at $95.92) |
+
+**You sponsor shipping.** For the form, enter **`7.00` USD** tax so **$95.92 + $7 ≈ $103** passes the checker. Plan to pay **~USD 4 more** tax at Canadian checkouts / on import (~**CAD 14.50** real minus what you claimed).
+
+To put **full ~$11 tax** on the form and stay ≤ **$103**, parts on the import need to drop to about **$92** (cut ~**$4** from the BOM) — ask if you want line items to trim.
 
 ## Tax & shipping — Half Life field (USD)
 
@@ -44,7 +61,7 @@ Half Life adds this **one number** to parts toward the tier cap.
 
 | | Amount |
 |--|--------|
-| **Half Life field** | **`7.00` USD** |
+| **Half Life field** | **`7.00` USD** (cap math; real tax ~**$11**) |
 | Parts + tax (HL sum) | **~$102.92** |
 | Shipping you pay separately | **~USD 26** + **~CAD 42** (see below) |
 

@@ -2,8 +2,8 @@
 
 All lines priced in `bom.csv` (**Currency** USD or CAD).
 
-**Half Life (you pay shipping):** parts ~**$96** + tax field **`7.00` USD** → **~$103** cap.
+**Tax (real):** ~**CAD 6.83** on CAD orders + ~**CAD 7.67** import HST on USD orders ≈ **CAD 14.50** (~**USD 11**).
 
-**Not 5% tax** — **$7** is ~**13% HST on CAD 52.56** only, not 13% on the whole import total.
+**Half Life tax field (≤ $103 with ~$96 parts):** **`7.00` USD** — you pay the rest of tax + all shipping yourself.
 
 See `BOM_SUMMARY.md`.
