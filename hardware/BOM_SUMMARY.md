@@ -1,50 +1,61 @@
-# BOM summary — what the numbers mean
+# BOM summary
 
-Half Life only imports **`hardware/bom.csv`**.
+Half Life imports **`hardware/bom.csv`**.
 
-## What to type in Half Life (direct)
+## CSV columns
 
-| Field | Enter this | What it is |
-|-------|------------|------------|
-| **Parts** (from repo import) | whatever Half Life shows after import | Sum of the Total column on all rows |
-| **Tax & shipping for the whole order** | **12.50** | One guessed number for LCSC ship + Mouser ship + a little HST. **Not $70.** Not a real invoice yet. |
+`Part, Purpose, Qty, **Currency**, Unit Price, Total Price, Vendor, Link, Notes`
 
-After import, Half Life usually shows about **$90** for parts because it adds every line, including **CAD 21.60** and **CAD 11.34** as if they were USD. That is a display quirk; those two lines are **Canadian dollars** (see Notes: `Currency CAD`).
+- **Currency** is `USD` or `CAD`.
+- **Unit Price** and **Total Price** are in that currency (not converted in the file).
 
-## The three totals (do not mix them up)
+## Parts subtotals (from `bom.csv`)
 
-1. **~$90** — Half Life “parts” total if it sums the whole CSV (USD + CAD mixed in one column). **This is not tax/shipping.**
+| Currency | Subtotal |
+|----------|----------|
+| **USD** | **$43.36** (LCSC, DigiKey, Adafruit) |
+| **CAD** | **$52.56** (Mouser, Amazon.ca, Addison, Universal Solder ×2, PiShop) |
 
-2. **$12.50** — **Only** the tax & shipping box. Shipping + tax **estimate** for Week 1, in **USD**.
+Planning FX (CAD→USD for grant math only): **0.735** — not stored in the CSV.
 
-3. **~$70** — If you saw something near 70, it was probably **$57 USD parts + $12.50 tax/shipping ≈ $70**, i.e. **parts + shipping together**, not shipping alone.
+CAD goods in USD � **$38.63**. All parts � **$82.00 USD** if you convert everything for yourself.
 
-## USD grant bucket (Week 1, LCSC / DigiKey / Adafruit / etc.)
+## Tax & shipping — Half Life field (USD)
 
-Rows **without** `Currency CAD` in Notes add to about **$57.09 USD** (real LCSC/DigiKey/Adafruit checkout currency).
+**Enter: `56.00` USD** in **Tax & shipping for the whole order**.
 
-## CAD you pay separately (not converted for that USD rollup)
+This is **shipping + sales tax only**, not parts. Built from separate checkout baskets:
 
-| Part | CAD |
-|------|-----|
-| ESP32 on Mouser.ca | 21.60 |
-| 2× GC9A01 Universal Solder | 11.34 |
-| **Total CAD checkout** | **32.94** |
+| Basket | Shipping estimate | Tax estimate |
+|--------|-------------------|--------------|
+| LCSC (USD) | $8 USD | — |
+| Adafruit speaker (USD) | $10 USD | — |
+| DigiKey switch (USD) | $8 USD | — |
+| Mouser DevKit (CAD) | CAD 12 | HST 13% on CAD 21.60 |
+| Universal Solder displays + mic (CAD) | CAD 10 | HST on CAD 15.33 |
+| Amazon.ca TP4056 (CAD) | CAD 5.69 | HST on CAD 9.69 |
+| Addison MT3608 (CAD) | CAD 6 | HST on CAD 3.99 |
+| PiShop JST cable (CAD) | CAD 8 | HST on CAD 1.95 |
 
-Plus HST on those Canadian orders at checkout (often ~13% in ON — not included above).
+CAD shipping **41.69 CAD** + HST on CAD goods **6.83 CAD** → **48.52 CAD** × 0.735 � **$35.66 USD**, plus **$26 USD** shipping on the three USD stores → **≈ $61.66**.  
 
-## Is $12.50 tax/shipping “real”?
+**Use $56** after assuming one fewer small-parcel ship (e.g. PiShop line combined with Universal Solder or local pickup). Replace with receipt totals when you checkout.
 
-**No.** It is a **planning guess** so the form is not blank:
+Assumes **13% HST** (Ontario-style) on Canadian taxable goods.
 
-- LCSC ship to Canada ~$6 USD  
-- Mouser ship for the DevKit ~$4 USD  
-- ~$2.50 USD toward tax  
+## What to compare to the $100 tier
 
-When you actually check out, replace **12.50** with **real shipping + tax from your receipts** (or use **0** until you know).
+Hack Club counts the import the way their UI sums **Total Price** (may ignore **Currency**). After import, check their total.
 
-## Week 2, passives, optional
+For planning:
 
-Not in `bom.csv`. See earlier notes in git history or add motors/battery manually when that tier opens. LCSC resistor/cap packs ~**$15.20 USD** on the same LCSC order as the chips.
+- **USD grant checkout:** ~**$43.36** parts + **$56** tax/shipping ≈ **$99** on USD vendors.
+- **CAD checkout (your card):** ~**CAD 52.56** parts + ~**CAD 48** ship/tax ≈ **CAD 100** on Canadian vendors.
 
-Printing: teacher printer at school (not on this list).
+You are placing **both** USD and CAD orders; the tier limit applies to what Half Life counts on the form.
+
+## Not in `bom.csv`
+
+Week 2 motors/battery, LCSC passives packs (~$15 USD), DNP optional — add manually or separate tier.
+
+Printing: teacher printer at school.

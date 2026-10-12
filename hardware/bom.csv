@@ -1,27 +1,27 @@
-Part,Purpose,Qty,Unit Price (USD),Total Price (USD),Vendor,Link,Notes
-ESP32-S3-DevKitC-1-N8R8,Main controller U2. Exact N8R8 not the -1U.,1,21.60,21.60,Mouser Canada,,"WEEK1-PCB. Currency CAD. Mouser.ca checkout CAD 21.60; not in USD subtotal."
-MPU-6050,Bare gyro U5. QFN-24 on the PCB.,1,20.23,20.23,LCSC,https://www.lcsc.com/product-detail/C24112.html,WEEK1-PCB. LCSC checkout USD.
-DRV8833PWPR,Motor driver U3.,1,2.10,2.10,LCSC,https://www.lcsc.com/product-image/C50506.html,WEEK1-PCB. LCSC checkout USD.
-TP4056 USB-C charger module with DW01,Charger TP1. Six pads IN+ IN- B+ B- OUT+ OUT-.,1,6.78,6.78,Amazon.ca,,"WEEK1-PCB. List price CAD 9.69 for 3-pack; one used."
-MT3608 boost module,Motor rail boost U1. Four pads VIN+ VIN- OUT+ OUT-.,1,2.79,2.79,Addison Electronique,,"WEEK1-PCB. List price CAD 3.99."
-GC9A01 1.28in round LCD module 7-pin,Both eyes DS1 and DS2.,2,5.67,11.34,Universal Solder,https://www.universal-solder.ca/product/ips-tft-display-round-1-28-240x240-gc9a01-controller/,"WEEK1-PCB. Currency CAD. CAD 5.67 each for qty 2; CAD 5.11 each at 3-9. Confirm SPI header matches 1x07 footprint."
-INMP441 I2S microphone module 6-pin,Microphone MK1.,1,2.79,2.79,Universal Solder,,"WEEK1-PCB. List price CAD 3.99. Six-pin module; PCB footprint is 1x05."
-MAX98357AETE+T,Speaker amplifier U4.,1,1.86,1.86,LCSC,https://www.lcsc.com/product-detail/C910544.html,"WEEK1-PCB. Currency USD. LCSC C910544, USD 1.863 for qty 1 on product page."
-MAX17048G+T10,Fuel gauge U10.,1,2.17,2.17,LCSC,https://www.lcsc.com/product-detail/C2682616.html,WEEK1-PCB. LCSC checkout USD.
-Thin plastic speaker 8 ohm 0.5W max,Speaker for MAX98357A.,1,1.75,1.75,Adafruit,https://www.adafruit.com/product/1891,WEEK1-PCB. Adafruit checkout USD.
-AP2112K-3.3TRG1,3.3 V regulator U7.,5,0.172,0.86,LCSC,https://www.lcsc.com/product-detail/C51118.html,WEEK1-PCB. LCSC 5-pack USD.
-AO3401A,Display power switch Q4.,10,0.06,0.60,LCSC,https://www.lcsc.com/product-detail/C15127.html,WEEK1-PCB. LCSC 10-pack USD.
-USBLC6-2SC6,USB ESD U11.,5,0.18,0.90,LCSC,https://www.lcsc.com/product-detail/C7519.html,WEEK1-PCB. LCSC 5-pack USD.
-USBLC6-4SC6,ESD U13.,5,0.17,0.85,LCSC,https://www.lcsc.com/product-detail/C111212.html,WEEK1-PCB. LCSC 5-pack USD.
-WS2812B,RGB LEDs D7 and D8.,5,0.104,0.52,LCSC,https://www.lcsc.com/product-detail/C114586.html,WEEK1-PCB. LCSC 5-pack USD.
-1N5819,Schottky D1.,5,0.136,0.68,LCSC,https://www.lcsc.com/product-detail/C7427999.html,WEEK1-PCB. LCSC 5-pack USD.
-TYPE-C-31-M-12,USB-C receptacle J4.,5,0.19,0.95,LCSC,https://www.lcsc.com/product-detail/C165948.html,WEEK1-PCB. LCSC 5-pack USD.
-OS102011MS2QN1,Slide switch SW2.,1,0.66,0.66,DigiKey,https://www.digikey.com/en/products/detail/c-k/OS102011MS2QN1/411602,WEEK1-PCB. DigiKey checkout USD.
-PTS645 tactile switch,Buttons SW1 SW3 SW6.,5,0.288,1.44,LCSC,https://www.lcsc.com/product-detail/C221880.html,WEEK1-PCB. LCSC 5-pack USD.
-6 mm tactile button,Reset SW4 and boot SW5.,5,0.184,0.92,LCSC,,WEEK1-PCB. LCSC 5-pack USD.
-KF301 screw terminal 1x2,"Terminals J1, J2, J5.",5,0.102,0.51,LCSC,,WEEK1-PCB. LCSC 5-pack USD.
-2.54 mm male pin header 1x40,"Cut for DS1 DS2, TP1, U1, servos, encoders, J8.",2,0.885,1.77,LCSC,,WEEK1-PCB. LCSC two strips USD.
-2.54 mm female pin header 1x40 cut to 19,DevKit sockets U2. Footprint 2x19.,2,0.645,1.29,LCSC,,WEEK1-PCB. Cut to 19 pins per side.
-JST PH 2-pin connector set,Battery plug for BT1 on the PCB.,1,2.29,2.29,LCSC,,WEEK1-PCB. LCSC checkout USD.
-JST SH BM04B-SRSS-TB 1.0 mm receptacle,I2C connector J7 on the PCB.,5,0.2016,1.01,LCSC,https://www.lcsc.com/product-detail/C160390.html,WEEK1-PCB. LCSC min 5 USD.
-JST SH 4-pin cable 1.0 mm,Cable for J7.,1,1.37,1.37,PiShop,,WEEK1-PCB. List price CAD 1.95.
+Part,Purpose,Qty,Currency,Unit Price,Total Price,Vendor,Link,Notes
+ESP32-S3-DevKitC-1-N8R8,Main controller U2. Exact N8R8 not the -1U.,1,CAD,21.60,21.60,Mouser Canada,,WEEK1-PCB. Mouser.ca list price.
+MPU-6050,Bare gyro U5. QFN-24 on the PCB.,1,USD,20.23,20.23,LCSC,https://www.lcsc.com/product-detail/C24112.html,WEEK1-PCB. LCSC C24112.
+DRV8833PWPR,Motor driver U3.,1,USD,2.10,2.10,LCSC,https://www.lcsc.com/product-image/C50506.html,WEEK1-PCB. LCSC C50506.
+TP4056 USB-C charger module with DW01,Charger TP1. Six pads IN+ IN- B+ B- OUT+ OUT-.,1,CAD,9.69,9.69,Amazon.ca,,WEEK1-PCB. CAD 9.69 for 3-pack; one module used.
+MT3608 boost module,Motor rail boost U1. Four pads VIN+ VIN- OUT+ OUT-.,1,CAD,3.99,3.99,Addison Electronique,,WEEK1-PCB. Addison list CAD 3.99.
+GC9A01 1.28in round LCD module 7-pin,Both eyes DS1 and DS2.,2,CAD,5.67,11.34,Universal Solder,https://www.universal-solder.ca/product/ips-tft-display-round-1-28-240x240-gc9a01-controller/,WEEK1-PCB. CAD 5.67 each qty 2. Confirm 7-pin vs 1x07 footprint.
+INMP441 I2S microphone module 6-pin,Microphone MK1.,1,CAD,3.99,3.99,Universal Solder,,WEEK1-PCB. CAD 3.99. Six-pin module; PCB footprint is 1x05.
+MAX98357AETE+T,Speaker amplifier U4.,1,USD,1.86,1.86,LCSC,https://www.lcsc.com/product-detail/C910544.html,WEEK1-PCB. LCSC C910544 USD 1.863 qty 1.
+MAX17048G+T10,Fuel gauge U10.,1,USD,2.17,2.17,LCSC,https://www.lcsc.com/product-detail/C2682616.html,WEEK1-PCB. LCSC C2682616.
+Thin plastic speaker 8 ohm 0.5W max,Speaker for MAX98357A.,1,USD,1.75,1.75,Adafruit,https://www.adafruit.com/product/1891,WEEK1-PCB. Adafruit USD checkout.
+AP2112K-3.3TRG1,3.3 V regulator U7.,5,USD,0.172,0.86,LCSC,https://www.lcsc.com/product-detail/C51118.html,WEEK1-PCB. LCSC 5-pack.
+AO3401A,Display power switch Q4.,10,USD,0.06,0.60,LCSC,https://www.lcsc.com/product-detail/C15127.html,WEEK1-PCB. LCSC 10-pack.
+USBLC6-2SC6,USB ESD U11.,5,USD,0.18,0.90,LCSC,https://www.lcsc.com/product-detail/C7519.html,WEEK1-PCB. LCSC 5-pack.
+USBLC6-4SC6,ESD U13.,5,USD,0.17,0.85,LCSC,https://www.lcsc.com/product-detail/C111212.html,WEEK1-PCB. LCSC 5-pack.
+WS2812B,RGB LEDs D7 and D8.,5,USD,0.104,0.52,LCSC,https://www.lcsc.com/product-detail/C114586.html,WEEK1-PCB. LCSC 5-pack.
+1N5819,Schottky D1.,5,USD,0.136,0.68,LCSC,https://www.lcsc.com/product-detail/C7427999.html,WEEK1-PCB. LCSC 5-pack.
+TYPE-C-31-M-12,USB-C receptacle J4.,5,USD,0.19,0.95,LCSC,https://www.lcsc.com/product-detail/C165948.html,WEEK1-PCB. LCSC 5-pack.
+OS102011MS2QN1,Slide switch SW2.,1,USD,0.66,0.66,DigiKey,https://www.digikey.com/en/products/detail/c-k/OS102011MS2QN1/411602,WEEK1-PCB. DigiKey USD.
+PTS645 tactile switch,Buttons SW1 SW3 SW6.,5,USD,0.288,1.44,LCSC,https://www.lcsc.com/product-detail/C221880.html,WEEK1-PCB. LCSC 5-pack.
+6 mm tactile button,Reset SW4 and boot SW5.,5,USD,0.184,0.92,LCSC,,WEEK1-PCB. LCSC 5-pack.
+KF301 screw terminal 1x2,"Terminals J1, J2, J5.",5,USD,0.102,0.51,LCSC,,WEEK1-PCB. LCSC 5-pack.
+2.54 mm male pin header 1x40,"Cut for DS1 DS2, TP1, U1, servos, encoders, J8.",2,USD,0.885,1.77,LCSC,,WEEK1-PCB. LCSC two strips.
+2.54 mm female pin header 1x40 cut to 19,DevKit sockets U2. Footprint 2x19.,2,USD,0.645,1.29,LCSC,,WEEK1-PCB. Cut to 19 pins per side.
+JST PH 2-pin connector set,Battery plug for BT1 on the PCB.,1,USD,2.29,2.29,LCSC,,WEEK1-PCB. LCSC set.
+JST SH BM04B-SRSS-TB 1.0 mm receptacle,I2C connector J7 on the PCB.,5,USD,0.2016,1.01,LCSC,https://www.lcsc.com/product-detail/C160390.html,WEEK1-PCB. LCSC min 5.
+JST SH 4-pin cable 1.0 mm,Cable for J7.,1,CAD,1.95,1.95,PiShop,,WEEK1-PCB. PiShop list CAD 1.95.
