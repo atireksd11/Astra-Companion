@@ -1,10 +1,20 @@
-﻿Part,Qty,Unit Price (USD),Total Price (USD),Vendor,Link,Notes
-ESP32-S3-DEVKITC-1-N8R8,1,15.00,15.00,Mouser,https://www.mouser.com/ProductDetail/Espressif-Systems/ESP32-S3-DevKitC-1-N8R8,DigiKey and Mouser both list $15.00 for qty 1. LCSC qty-1 reference is $36.19 and was out of stock.
-DRV8833PWPR,1,2.10,2.10,LCSC,https://www.lcsc.com/product-detail/C50506.html,LCSC C50506 qty-1 price $2.0991
-GC9A01 1.28in 240x240 round LCD module,2,8.90,17.80,Makerfabs,https://www.makerfabs.com/gc9a01-1-28-inch-round-lcd-module.html,Module price. Cheap no-name Amazon boards are lower but this listing states $8.90.
-MPU-6050,1,20.23,20.23,LCSC,https://www.lcsc.com/product-detail/C24112.html,Bare QFN chip matching the schematic. A GY-521 module is cheaper and is a different part.
-DS3231MZ/V+,1,7.97,7.97,LCSC,https://www.lcsc.com/product-detail/C3304431.html,Closest stocked Maxim RTC I found. Package is SOIC-8. The schematic footprint is SOIC-16 so check this before ordering.
-VL53L0CXV0DH/1,1,5.18,5.18,Mouser,https://www.mouser.com/ProductDetail/STMicroelectronics/VL53L0CXV0DH-1,Mouser qty-1 break from Octopart. Schematic footprint is a VL53L1x land pattern so recheck the package.
-MAX98357AETE+T,1,1.33,1.33,LCSC,https://www.lcsc.com/product-detail/C910544.html,LCSC C910544 qty-1 price $1.3302
-AP2112K-3.3TRG1,5,0.08,0.38,LCSC,https://www.lcsc.com/product-detail/C51118.html,Sold in multiples of 5. Qty-5 unit price $0.0761.
-USBLC6-2SC6,5,0.18,0.89,LCSC,https://www.lcsc.com/product-detail/C7519.html,Sold in multiples of 5. Qty-5 unit price $0.1786. Covers U11. U13 is the 4-line version and is not this SKU.
+﻿Part,Purpose,Qty,Unit Price (USD),Total Price (USD),Vendor,Link,Notes
+ESP32-S3-DEVKITC-1-N8R8,Main controller that plugs into the carrier,1,15.00,15.00,Mouser,https://www.mouser.com/ProductDetail/Espressif-Systems/ESP32-S3-DevKitC-1-N8R8,Mouser and DigiKey qty-1 price. LCSC single-unit reference is $36.19 and was out of stock.
+DRV8833PWPR,Dual H-bridge for the two wheel motors,1,2.10,2.10,LCSC,https://www.lcsc.com/product-detail/C50506.html,LCSC C50506 qty-1 price $2.0991.
+GC9A01 1.28in 240x240 round LCD module,The two round eyes,2,8.90,17.80,Makerfabs,https://www.makerfabs.com/gc9a01-1-28-inch-round-lcd-module.html,Module. The schematic footprint is a 7-pin header for this board.
+MPU-6050,Gyro and accelerometer for balance,1,20.23,20.23,LCSC,https://www.lcsc.com/product-detail/C24112.html,Bare QFN matching the schematic. A GY-521 module is a different cheaper part.
+DS3231MZ/V+,Real-time clock,1,7.97,7.97,LCSC,https://www.lcsc.com/product-detail/C3304431.html,SOIC-8. The schematic footprint is SOIC-16 so check the package before ordering.
+VL53L0CXV0DH/1,Time-of-flight distance sensor,1,5.18,5.18,Mouser,https://www.mouser.com/ProductDetail/STMicroelectronics/VL53L0CXV0DH-1,Mouser qty-1 price. Schematic footprint is a VL53L1x land pattern.
+MAX98357AETE+T,I2S speaker amplifier,1,1.33,1.33,LCSC,https://www.lcsc.com/product-detail/C910544.html,LCSC C910544 qty-1 price $1.3302.
+INMP441 I2S microphone module,Digital microphone,1,5.00,5.00,Elecrow,https://www.elecrow.com/inmp441-i2s-microphone-module.html,Breakout matching the 5-pin header. The bare INMP441 is not priced on LCSC. The official eval board is $45 and is the wrong thing to buy.
+MAX17048G+T10,Li-ion fuel gauge,1,2.17,2.17,LCSC,https://www.lcsc.com/product-detail/C2682616.html,LCSC C2682616 qty-1 price $2.1654.
+MT3608 boost module,Steps the battery up to the motor rail,1,0.95,0.95,ProtoSupplies,https://protosupplies.com/product/mt3608-mini-adjustable-dc-dc-boost-module/,Module matching the 4-pin header on the schematic.
+AP2112K-3.3TRG1,3.3V regulator for logic,5,0.08,0.40,LCSC,https://www.lcsc.com/product-detail/C51118.html,Sold in 5s. Listed qty-5 price is $0.0761. One piece is used.
+AO3401A,P-channel MOSFET that switches display power,10,0.06,0.60,LCSC,https://www.lcsc.com/product-detail/C15127.html,AOS C15127. Minimum is 10. Listed 10+ price is $0.0589. One piece is used.
+USBLC6-2SC6,ESD protection for USB,5,0.18,0.90,LCSC,https://www.lcsc.com/product-detail/C7519.html,Sold in 5s. Listed qty-5 price is $0.1786. One piece is U11.
+USBLC6-4SC6,ESD protection for the button lines,5,0.17,0.85,LCSC,https://www.lcsc.com/product-detail/C111212.html,Sold in 5s. Listed qty-5 price is $0.1675. One piece is U13.
+TYPE-C-31-M-12,USB-C receptacle,5,0.19,0.95,LCSC,https://www.lcsc.com/product-detail/C165948.html,Same part as the schematic footprint. Sold in 5s at $0.1879. One piece is used.
+Keystone 1042,18650 battery holder,1,4.82,4.82,LCSC,https://www.lcsc.com/product-detail/C5249310.html,Listed reference price $4.8173. Page showed out of stock.
+PTS645SM43SMTR92LFS,Tactile buttons,5,0.21,1.05,LCSC,https://www.lcsc.com/product-detail/C221880.html,Matches SW1 SW3 SW6. Sold in 5s at $0.2054. Three are used. Reset and boot are different switches and are not this line.
+WS2812B-B/W,Addressable status LEDs,5,0.10,0.50,LCSC,https://www.lcsc.com/product-detail/C114586.html,Sold in 5s at $0.1042. Two are on the board.
+CL21B104KBCNNNC,0.1uF decoupling capacitors,20,0.02,0.40,LCSC,https://www.lcsc.com/product-detail/C1711.html,0805 100nF. Sold in 20s at $0.0151. The schematic uses 18 of this value.
