@@ -1,12 +1,12 @@
 Part,Purpose,Qty,Unit Price (USD),Total Price (USD),Vendor,Link,Notes
-ESP32-S3-DevKitC-1-N8R8,Main controller U2. Exact N8R8 not the -1U.,1,15.12,15.12,Mouser Canada,,"WEEK1-PCB. List price CAD 21.60."
+ESP32-S3-DevKitC-1-N8R8,Main controller U2. Exact N8R8 not the -1U.,1,21.60,21.60,Mouser Canada,,"WEEK1-PCB. Currency CAD. Mouser.ca checkout CAD 21.60; not in USD subtotal."
 MPU-6050,Bare gyro U5. QFN-24 on the PCB.,1,20.23,20.23,LCSC,https://www.lcsc.com/product-detail/C24112.html,WEEK1-PCB. LCSC checkout USD.
 DRV8833PWPR,Motor driver U3.,1,2.10,2.10,LCSC,https://www.lcsc.com/product-image/C50506.html,WEEK1-PCB. LCSC checkout USD.
 TP4056 USB-C charger module with DW01,Charger TP1. Six pads IN+ IN- B+ B- OUT+ OUT-.,1,6.78,6.78,Amazon.ca,,"WEEK1-PCB. List price CAD 9.69 for 3-pack; one used."
 MT3608 boost module,Motor rail boost U1. Four pads VIN+ VIN- OUT+ OUT-.,1,2.79,2.79,Addison Electronique,,"WEEK1-PCB. List price CAD 3.99."
-GC9A01 1.28in round LCD module 7-pin,Both eyes DS1 and DS2.,2,8.90,17.80,Makerfabs,https://www.makerfabs.com/gc9a01-1-28-inch-round-lcd-module.html,WEEK1-PCB. Makerfabs checkout USD.
+GC9A01 1.28in round LCD module 7-pin,Both eyes DS1 and DS2.,2,5.67,11.34,Universal Solder,https://www.universal-solder.ca/product/ips-tft-display-round-1-28-240x240-gc9a01-controller/,"WEEK1-PCB. Currency CAD. CAD 5.67 each for qty 2; CAD 5.11 each at 3-9. Confirm SPI header matches 1x07 footprint."
 INMP441 I2S microphone module 6-pin,Microphone MK1.,1,2.79,2.79,Universal Solder,,"WEEK1-PCB. List price CAD 3.99. Six-pin module; PCB footprint is 1x05."
-MAX98357AETE+T,Speaker amplifier U4.,1,1.33,1.33,LCSC,https://www.lcsc.com/product-detail/C910544.html,WEEK1-PCB. LCSC checkout USD.
+MAX98357AETE+T,Speaker amplifier U4.,1,1.86,1.86,LCSC,https://www.lcsc.com/product-detail/C910544.html,"WEEK1-PCB. Currency USD. LCSC C910544, USD 1.863 for qty 1 on product page."
 MAX17048G+T10,Fuel gauge U10.,1,2.17,2.17,LCSC,https://www.lcsc.com/product-detail/C2682616.html,WEEK1-PCB. LCSC checkout USD.
 Thin plastic speaker 8 ohm 0.5W max,Speaker for MAX98357A.,1,1.75,1.75,Adafruit,https://www.adafruit.com/product/1891,WEEK1-PCB. Adafruit checkout USD.
 AP2112K-3.3TRG1,3.3 V regulator U7.,5,0.172,0.86,LCSC,https://www.lcsc.com/product-detail/C51118.html,WEEK1-PCB. LCSC 5-pack USD.

@@ -4,55 +4,53 @@ Updated 2026-10-12. Half Life imports only **`hardware/bom.csv`**.
 
 ## Currency
 
-- **All part prices in `bom.csv` are USD** (column headers match Half Life).
-- **Hack Club tier funding is USD** ($100 PCB week).
-- **LCSC, DigiKey, Adafruit, Makerfabs:** unit prices are USD from those checkout pages.
-- **Mouser Canada, Amazon.ca, Addison, Universal Solder, PiShop:** list prices are CAD on the storefront; converted to USD at **0.70 USD/CAD** for this BOM (planning rate, not live FX).
+Half Life columns are labeled USD, but some lines are **checkout CAD** (amount in the column is **CAD dollars**, not converted).
 
-Do not mix raw CAD numbers in the Unit/Total columns.
+| Rule | Rows |
+|------|------|
+| **USD** — use in **USD subtotal** | LCSC, DigiKey, Adafruit; Notes say `Currency USD` |
+| **CAD** — **not** in USD subtotal | Notes say `Currency CAD` (Mouser DevKit, Universal Solder displays) |
+| **USD planning** (CAD × 0.70) | Amazon.ca, Addison, Universal Solder mic, PiShop cable — still counted in USD subtotal until moved to raw CAD |
 
 ## Week 1 — PCB tier (`bom.csv`)
 
-- Parts subtotal: **$89.48** (26 lines)
-- **Tax and shipping (enter in Half Life): $12.50 USD**
-- **Grand total for the tier check: $101.98 USD** (parts + tax/shipping)
+| Rollup | Amount |
+|--------|--------|
+| **USD subtotal** (grant math) | **$57.09** |
+| **CAD subtotal** (paid at checkout) | **CAD 32.94** (ESP32 21.60 + 2× GC9A01 11.34) |
+| **Tax & shipping (Half Life field)** | **$12.50 USD** |
+| **USD tier check** | **$69.59 USD** (USD subtotal + tax/shipping; CAD lines paid separately) |
 
-### Tax and shipping breakdown (Week 1, one number for the form)
+If Half Life sums every row in the import, it shows about **$90.03** — that mixes CAD into the USD column. Use the **USD subtotal** above for the grant cap; CAD lines are tagged in Notes.
+
+Re-run totals after any edit: USD = every row whose Notes do **not** contain `Currency CAD`.
+
+### Tax and shipping (enter in Half Life)
 
 | Item | USD |
 |------|-----|
-| LCSC economy ship to Canada (one combined order) | 6.00 |
+| LCSC economy ship to Canada | 6.00 |
 | Mouser Canada ship (DevKit) | 4.00 |
-| Estimated HST 13% on ~CAD 40 domestic lines (× 0.70) | 2.50 |
-| **Total (enter in Half Life)** | **12.50** |
-
-Makerfabs and Adafruit ship with their own lines; if those invoices add more, keep the form at **12.50** only if the full total still fits the tier cap.
-
-Half Life has a single field **“Tax & shipping for the whole order”** — type **12.50** (USD, same as parts).
-
-If checkout comes in higher, trim a line or use teacher/school stock before raising this number.
+| Estimated HST on remaining CAD lines (planning) | 2.50 |
+| **Total** | **12.50** |
 
 ## Week 2 — CAD / enclosure tier (manual in Half Life, not in `bom.csv`)
 
-All **USD**, CAD sources at **0.70** where noted.
-
 | Part | Qty | Total USD | Vendor |
 |------|-----|-----------|--------|
-| N20 encoder motor pair 6V ~300 RPM | 1 | 19.38 | Amazon.ca (CAD 27.69) |
-| N20 wheels 43 mm | 1 | 3.50 | DFRobot (USD page) |
-| Molicel P30 18650 | 1 | 13.65 | Battery Canada (CAD 19.50) |
-| 18650 holder with leads | 1 | 1.37 | BC Robotics (CAD 1.95) |
-| MG90S servo | 2 | 8.40 | BC Robotics (CAD 6.00 ea) |
-| microSD card 8GB (if using SD) | 1 | 20.99 | Amazon.ca (CAD 29.99) |
+| N20 encoder motor pair 6V ~300 RPM | 1 | 19.38 | Amazon.ca (CAD 27.69 × 0.70) |
+| N20 wheels 43 mm | 1 | 3.50 | DFRobot |
+| Molicel P30 18650 | 1 | 13.65 | Battery Canada (CAD 19.50 × 0.70) |
+| 18650 holder with leads | 1 | 1.37 | BC Robotics |
+| MG90S servo | 2 | 8.40 | BC Robotics |
+| microSD card 8GB (if using SD) | 1 | 20.99 | Amazon.ca |
 
-Week 2 parts subtotal about **$67.29**. Plan separate tax/shipping when you submit that tier (not in `bom.csv`).
+## LCSC passives (not in `bom.csv`)
 
-## LCSC passives (same LCSC order as Week 1 parts, not in `bom.csv`)
-
-~**$15.20 USD** — resistor packs **$2.97**, capacitor/LED packs **$12.23** (LCSC USD checkout). Shipping counted in Week 1 LCSC line above.
+~**$15.20 USD** — resistor and capacitor packs on the same LCSC order.
 
 ## DNP optional (reference only)
 
 ~**$15.39 USD** — DS3231, VL53, BAT54C, Molex SD socket, Keystone 3000, CR1220.
 
-Printing: teacher printer and filament at school. He might lend parts; not counted here.
+Printing: teacher printer and filament at school.
