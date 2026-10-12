@@ -18,7 +18,7 @@ Half Life imports **`hardware/bom.csv`**.
 
 Planning FX (CAD→USD for grant math only): **0.735** — not stored in the CSV.
 
-CAD goods in USD � **$38.63**. All parts � **$82.00 USD** if you convert everything for yourself.
+CAD goods in USD ≈ **$38.63**. All parts ≈ **$82.00 USD** if you convert everything for yourself.
 
 ## Tax & shipping — Half Life field (USD)
 
@@ -37,7 +37,7 @@ This is **shipping + sales tax only**, not parts. Built from separate checkout b
 | Addison MT3608 (CAD) | CAD 6 | HST on CAD 3.99 |
 | PiShop JST cable (CAD) | CAD 8 | HST on CAD 1.95 |
 
-CAD shipping **41.69 CAD** + HST on CAD goods **6.83 CAD** → **48.52 CAD** × 0.735 � **$35.66 USD**, plus **$26 USD** shipping on the three USD stores → **≈ $61.66**.  
+CAD shipping **41.69 CAD** + HST on CAD goods **6.83 CAD** → **48.52 CAD** × 0.735 ≈ **$35.66 USD**, plus **$26 USD** shipping on the three USD stores → **≈ $61.66**.  
 
 **Use $56** after assuming one fewer small-parcel ship (e.g. PiShop line combined with Universal Solder or local pickup). Replace with receipt totals when you checkout.
 
