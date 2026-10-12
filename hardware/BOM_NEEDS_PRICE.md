@@ -1,15 +1,7 @@
 # Needs price
 
-Only one CORE row is still blank:
+All rows in hardware/bom.csv now have a unit price and vendor.
 
-- Mini metal speaker 8 ohm 0.5W
-
-Optional DNP rows still blank:
-
-- microSD card
-- CR2032 coin cell holder
-- CR2032 coin cell
-
-Everything else in hardware/bom.csv is a line you order. There are no “do not buy”, “cut from strip”, or “included in other row” lines anymore.
+Optional DNP lines (microSD card, Keystone 3000 holder, CR1220) are priced for planning only; you do not need them for the first build if those features stay DNP.
 
 R23 and R24 are not on the list. Bridge those pads with solder when you build the board.

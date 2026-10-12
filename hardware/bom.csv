@@ -13,7 +13,7 @@ GC9A01 1.28in round LCD module 7-pin,Both eyes DS1 and DS2.,2,8.90,17.80,Makerfa
 INMP441 I2S microphone module 6-pin,Microphone MK1.,1,2.79,2.79,Universal Solder,,"CORE. CAD 3.99 on the sheet, times 0.70. Module is six pins; the PCB footprint is a 1x05 header. You still need this part for audio; wire or fix the footprint in KiCad."
 MAX98357AETE+T,Speaker amplifier U4.,1,1.33,1.33,LCSC,https://www.lcsc.com/product-detail/C910544.html,"CORE. LCSC C910544, $1.33 for one."
 MAX17048G+T10,Fuel gauge U10.,1,2.17,2.17,LCSC,https://www.lcsc.com/product-detail/C2682616.html,CORE. LCSC C2682616.
-Mini metal speaker 8 ohm 0.5W,Speaker for MAX98357A.,1,,,,,"CORE. Still no price on the sheet. Adafruit 1890 was out of stock. Try under CAD 6."
+Thin plastic speaker 8 ohm 0.5W max,Speaker for MAX98357A.,1,1.75,1.75,Adafruit,https://www.adafruit.com/product/1891,"CORE. Adafruit 1891 in stock USD 1.75. 39 mm; 0.25 W rated, 0.5 W max. Metal Adafruit 1890 was OOS."
 AP2112K-3.3TRG1,3.3 V regulator U7.,5,0.172,0.86,LCSC,https://www.lcsc.com/product-detail/C51118.html,"CORE. LCSC 5-pack total $0.86 on the sheet. One IC on the board."
 AO3401A,Display power switch Q4.,10,0.06,0.60,LCSC,https://www.lcsc.com/product-detail/C15127.html,CORE. LCSC 10-pack $0.60 on the sheet.
 USBLC6-2SC6,USB ESD U11.,5,0.18,0.90,LCSC,https://www.lcsc.com/product-detail/C7519.html,CORE. LCSC 5-pack $0.90 on the sheet.
@@ -36,6 +36,6 @@ DS3231M+TRL,RTC U6. Optional for now.,1,8.56,8.56,DigiKey,https://www.digikey.co
 VL53L0CXV0DH/1,Distance sensor U8. Optional.,1,2.78,2.78,Mouser,https://www.mouser.com/ProductDetail/STMicroelectronics/VL53L0CXV0DH-1,DNP. $2.78 on the optional sheet. Footprint is still VL53L1x.
 BAT54C,Diode D5. Optional.,1,0.48,0.48,LCSC,,"DNP. $0.48 on the optional sheet."
 Molex 1040310811 microSD slot,Socket J6. Optional.,1,2.21,2.21,DigiKey,https://www.digikey.com/en/products/detail/molex/1040310811/2370379,DNP. DigiKey cut tape $2.21 when you add SD later.
-microSD card,Card for J6. Optional.,1,,,,,DNP. No price on the sheet.
-CR2032 coin cell holder,BT2. Optional.,1,,,,,DNP. No price on the sheet.
-CR2032 coin cell,BT2 backup. Optional.,1,,,,,DNP. No price on the sheet.
+microSD card 8GB Class 10,Card for J6. Optional.,1,20.99,20.99,Amazon.ca,https://www.amazon.ca/Sandisk-MicroSDHC-Memory-Card-Adapter/dp/B000WH6H1M,"DNP. Amazon.ca CAD 29.99 times 0.70. SanDisk 8 GB with adapter; Class 4 listing."
+Keystone 3000 12 mm coin cell retainer,BT2 holder on PCB. Optional.,1,0.41,0.41,DigiKey,https://www.digikey.com/en/products/detail/keystone-electronics/3000/227440,"DNP. USD 0.41 for one on DigiKey.com. Matches BatteryHolder_Keystone_3000 footprint; CR1220 class cell."
+CR1220 3V lithium coin cell,BT2 backup cell. Optional.,1,0.95,0.95,Adafruit,https://www.adafruit.com/product/380,"DNP. Adafruit 380 USD 0.95; page showed out of stock when checked. Same 12 mm cell as Keystone 3000."
