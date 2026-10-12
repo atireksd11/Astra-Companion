@@ -20,21 +20,33 @@ Planning FX (CAD→USD for grant math only): **0.735** — not stored in the CSV
 
 CAD goods in USD ≈ **$38.63**. All parts ≈ **$82.00 USD** if you convert everything for yourself.
 
+## The ~$96 total and the $103 cap
+
+Half Life **adds every `Total Price`**, USD and CAD mixed → about **$95.92** after import.
+
+| Math | Result |
+|------|--------|
+| 13% on **all** of $95.92 (if everything were taxable) | **$12.47** tax → **$108.39** total → **over $103** |
+| Max tax if parts stay $95.92 and total must be **≤ $103** | **$7.08** (you sponsor shipping) |
+| **13% HST in real life (Canada)** | Only on **Canadian store** subtotal **CAD 52.56** → **CAD 6.83** (not on the whole $96) |
+
+The old **“$5”** number was **five dollars of tax**, not **5%**. It was HST on CAD lines only, converted to USD (~$5). That was easy to misread.
+
+**Plan that fits $103:** you pay **all shipping** yourself. In Half Life **Tax & shipping** put **`7.00` USD** (≈ CAD 6.83 HST, rounded). Check: **$95.92 + $7.00 ≈ $102.92 ≤ $103**.
+
+LCSC / Adafruit / DigiKey checkouts are **USD** and normally **no Ontario HST on that invoice** — so you do **not** put 13% on the full $96 in the form unless Hack Club tells you to treat the import total that way (that would need **~$4.80 less parts** to still land at $103 with full 13% tax).
+
 ## Tax & shipping — Half Life field (USD)
 
-Half Life adds this **one number** to your parts total toward the tier cap.
+Half Life adds this **one number** to parts toward the tier cap.
 
-### If you pay shipping yourself (recommended if tight on $100)
-
-Put **only tax** in the form:
+### You sponsor shipping (use this)
 
 | | Amount |
 |--|--------|
-| **Half Life field** | **`5.00` USD** |
-| What that is | **13% HST** on **CAD 52.56** of Canadian parts = **CAD 6.83** (× 0.735 ≈ USD 5.02) |
-| You pay out of pocket | **~USD 26** ship (LCSC + Adafruit + DigiKey) + **~CAD 42** ship (Mouser, Universal, Amazon, Addison, PiShop) |
-
-LCSC / Adafruit / DigiKey usually do **not** charge Canadian HST at US checkout; border fees on small LCSC parcels are often **CAD 0** — not in this estimate.
+| **Half Life field** | **`7.00` USD** |
+| Parts + tax (HL sum) | **~$102.92** |
+| Shipping you pay separately | **~USD 26** + **~CAD 42** (see below) |
 
 ### If Hack Club pays shipping + tax
 
@@ -42,7 +54,7 @@ LCSC / Adafruit / DigiKey usually do **not** charge Canadian HST at US checkout;
 |--|--------|
 | **Half Life field** | **`62.00` USD** (round plan; receipts may differ) |
 | Shipping | **USD 26** + **CAD 41.69** (≈ USD 31) |
-| Tax | **CAD 6.83** HST (≈ USD 5) |
+| Tax | **CAD 6.83** HST (≈ USD 7) |
 
 **Do not use $56** unless you redo the math; full separate-parcel shipping + HST is **~USD 62**.
 

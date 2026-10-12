@@ -1,10 +1,9 @@
 # Needs price
 
-All lines priced in `bom.csv` with **Currency** USD or CAD.
+All lines priced in `bom.csv` (**Currency** USD or CAD).
 
-**Half Life → Tax & shipping**
+**Half Life (you pay shipping):** parts ~**$96** + tax field **`7.00` USD** → **~$103** cap.
 
-- You pay shipping: enter **`5.00` USD** (HST on Canadian parts only).
-- Grant pays shipping too: enter **`62.00` USD** (planning total).
+**Not 5% tax** — **$7** is ~**13% HST on CAD 52.56** only, not 13% on the whole import total.
 
 See `BOM_SUMMARY.md`.
