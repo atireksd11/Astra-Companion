@@ -34,9 +34,9 @@ right now, use [`hardware/BOM2.md`](hardware/BOM2.md), not the old planning list
 The Arduino core already runs on FreeRTOS, so I am using it instead of building
 another scheduler for fun:
 
-- `balanceTask` — Core 0, high priority, 5 ms period. MPU6050 read, angle
+- `balanceTask` - Core 0, high priority, 5 ms period. MPU6050 read, angle
   estimate, PID, and DRV8833 LEDC output. It never touches SPI or Wi-Fi.
-- `uiTask` — Core 1. Owns the shared SPI bus and both GC9A01 displays. It only
+- `uiTask` - Core 1. Owns the shared SPI bus and both GC9A01 displays. It only
   redraws when the eye state changes, because repainting 115,200 pixels for no
   reason is a great way to steal time from everything else.
 
@@ -87,6 +87,3 @@ The battery and boost section can source enough current to make mistakes hot.
 Check the 3.3 V and 5 V rails with a multimeter before plugging in the DevKit.
 Do not feed the MT3608 output into the ESP32 3V3 pin.
 
-## License
-
-MIT
