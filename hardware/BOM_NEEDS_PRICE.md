@@ -1,5 +1,10 @@
 # Needs price
 
-All lines in `bom.csv` are priced. **Currency** column is `USD` or `CAD`.
+All lines priced in `bom.csv` with **Currency** USD or CAD.
 
-**Half Life → Tax & shipping:** **56.00 USD** (see `BOM_SUMMARY.md`; update from receipts after checkout).
+**Half Life → Tax & shipping**
+
+- You pay shipping: enter **`5.00` USD** (HST on Canadian parts only).
+- Grant pays shipping too: enter **`62.00` USD** (planning total).
+
+See `BOM_SUMMARY.md`.

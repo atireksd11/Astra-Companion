@@ -22,9 +22,31 @@ CAD goods in USD ≈ **$38.63**. All parts ≈ **$82.00 USD** if you convert eve
 
 ## Tax & shipping — Half Life field (USD)
 
-**Enter: `56.00` USD** in **Tax & shipping for the whole order**.
+Half Life adds this **one number** to your parts total toward the tier cap.
 
-This is **shipping + sales tax only**, not parts. Built from separate checkout baskets:
+### If you pay shipping yourself (recommended if tight on $100)
+
+Put **only tax** in the form:
+
+| | Amount |
+|--|--------|
+| **Half Life field** | **`5.00` USD** |
+| What that is | **13% HST** on **CAD 52.56** of Canadian parts = **CAD 6.83** (× 0.735 ≈ USD 5.02) |
+| You pay out of pocket | **~USD 26** ship (LCSC + Adafruit + DigiKey) + **~CAD 42** ship (Mouser, Universal, Amazon, Addison, PiShop) |
+
+LCSC / Adafruit / DigiKey usually do **not** charge Canadian HST at US checkout; border fees on small LCSC parcels are often **CAD 0** — not in this estimate.
+
+### If Hack Club pays shipping + tax
+
+| | Amount |
+|--|--------|
+| **Half Life field** | **`62.00` USD** (round plan; receipts may differ) |
+| Shipping | **USD 26** + **CAD 41.69** (≈ USD 31) |
+| Tax | **CAD 6.83** HST (≈ USD 5) |
+
+**Do not use $56** unless you redo the math; full separate-parcel shipping + HST is **~USD 62**.
+
+### Breakdown by basket (planning)
 
 | Basket | Shipping estimate | Tax estimate |
 |--------|-------------------|--------------|
@@ -37,11 +59,7 @@ This is **shipping + sales tax only**, not parts. Built from separate checkout b
 | Addison MT3608 (CAD) | CAD 6 | HST on CAD 3.99 |
 | PiShop JST cable (CAD) | CAD 8 | HST on CAD 1.95 |
 
-CAD shipping **41.69 CAD** + HST on CAD goods **6.83 CAD** → **48.52 CAD** × 0.735 ≈ **$35.66 USD**, plus **$26 USD** shipping on the three USD stores → **≈ $61.66**.  
-
-**Use $56** after assuming one fewer small-parcel ship (e.g. PiShop line combined with Universal Solder or local pickup). Replace with receipt totals when you checkout.
-
-Assumes **13% HST** (Ontario-style) on Canadian taxable goods.
+Assumes **13% HST** (Ontario-style) on Canadian taxable goods. Update from invoices after checkout.
 
 ## What to compare to the $100 tier
 
