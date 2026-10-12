@@ -1,4 +1,4 @@
-Part,Purpose,Qty,Unit Price (USD),Total Price (USD),Vendor,Link,Notes
+﻿Part,Purpose,Qty,Unit Price (USD),Total Price (USD),Vendor,Link,Notes
 ESP32-S3-DEVKITC-1-N8R8,Main controller. Plugs into U2.,1,15.00,15.00,Mouser,https://www.mouser.com/ProductDetail/Espressif-Systems/ESP32-S3-DevKitC-1-N8R8,Existing vendor and link kept. Page not reopened on 2026-10-12. Buy 1.
 DRV8833PWPR,Dual H-bridge. U3.,1,2.10,2.10,LCSC,https://www.lcsc.com/product-detail/C50506.html,Existing vendor and link kept. Page not reopened on 2026-10-12. Buy 1.
 GC9A01 1.28in 240x240 round LCD module,Round eyes. DS1 and DS2.,2,8.90,17.80,Makerfabs,https://www.makerfabs.com/gc9a01-1-28-inch-round-lcd-module.html,Existing vendor and link kept. Page not reopened on 2026-10-12. Buy 2.
@@ -65,44 +65,3 @@ microSD card,Card for J6.,1,,,,,No price page opened on 2026-10-12.
 Subtotal of priced rows,Sum of Total Price. Shipping and tax are not included. PCB manufacturing is not included.,,,135.83,,,Checked 2026-10-12.
 Rows still needing a price,Count of part rows with an empty price.,39,,,,,See the Needs price section.
 Tiers: $65 or $100,Which tier this subtotal fits under.,,,,,,Subtotal $135.83 is above both $65 and $100.
-
-Needs price
-"INMP441 I2S microphone module, 6-pin"
-TP4056 USB-C charger module with DW01
-Slide switch
-CR2032 coin cell holder
-CR2032 coin cell
-BAT54C
-1N5819
-Phoenix screw terminal 1x2
-Metz screw terminal 1x2
-Pin header 1x7
-Pin header 1x6
-Pin header 1x4
-JST SH 4-pin 1.0 mm connector plus cable
-Pin header 1x3
-Fan pin header 1x3
-Pin header 1x1
-Female header 1x22
-JST PH 2-pin plus 18650 holder with leads
-5.1k axial resistor
-2.2k 0805 resistor
-1k 0805 resistor
-100k 0805 resistor
-"0.2 ohm 1% resistor, 0.5 W or higher"
-2.2uF 0805 capacitor
-10uF 1206 capacitor
-10uF 0805 capacitor
-22uF 0805 capacitor
-100uF radial capacitor
-100uF electrolytic capacitor
-1000uF radial capacitor
-2.2nF 0805 capacitor
-10nF 0805 capacitor
-1uF disc capacitor
-0.1uF disc capacitor
-0.1uF 0603 capacitor
-LED 0805
-Reset button
-Boot button
-microSD card
