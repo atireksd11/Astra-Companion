@@ -1,20 +1,67 @@
 ﻿Part,Purpose,Qty,Unit Price (USD),Total Price (USD),Vendor,Link,Notes
-ESP32-S3-DEVKITC-1-N8R8,Main controller that plugs into the carrier,1,15.00,15.00,Mouser,https://www.mouser.com/ProductDetail/Espressif-Systems/ESP32-S3-DevKitC-1-N8R8,Mouser and DigiKey qty-1 price. LCSC single-unit reference is $36.19 and was out of stock.
-DRV8833PWPR,Dual H-bridge for the two wheel motors,1,2.10,2.10,LCSC,https://www.lcsc.com/product-detail/C50506.html,LCSC C50506 qty-1 price $2.0991.
-GC9A01 1.28in 240x240 round LCD module,The two round eyes,2,8.90,17.80,Makerfabs,https://www.makerfabs.com/gc9a01-1-28-inch-round-lcd-module.html,Module. The schematic footprint is a 7-pin header for this board.
-MPU-6050,Gyro and accelerometer for balance,1,20.23,20.23,LCSC,https://www.lcsc.com/product-detail/C24112.html,Bare QFN matching the schematic. A GY-521 module is a different cheaper part.
-DS3231MZ/V+,Real-time clock,1,7.97,7.97,LCSC,https://www.lcsc.com/product-detail/C3304431.html,SOIC-8. The schematic footprint is SOIC-16 so check the package before ordering.
-VL53L0CXV0DH/1,Time-of-flight distance sensor,1,5.18,5.18,Mouser,https://www.mouser.com/ProductDetail/STMicroelectronics/VL53L0CXV0DH-1,Mouser qty-1 price. Schematic footprint is a VL53L1x land pattern.
-MAX98357AETE+T,I2S speaker amplifier,1,1.33,1.33,LCSC,https://www.lcsc.com/product-detail/C910544.html,LCSC C910544 qty-1 price $1.3302.
-INMP441 I2S microphone module,Digital microphone,1,5.00,5.00,Elecrow,https://www.elecrow.com/inmp441-i2s-microphone-module.html,Breakout matching the 5-pin header. The bare INMP441 is not priced on LCSC. The official eval board is $45 and is the wrong thing to buy.
-MAX17048G+T10,Li-ion fuel gauge,1,2.17,2.17,LCSC,https://www.lcsc.com/product-detail/C2682616.html,LCSC C2682616 qty-1 price $2.1654.
-MT3608 boost module,Steps the battery up to the motor rail,1,0.95,0.95,ProtoSupplies,https://protosupplies.com/product/mt3608-mini-adjustable-dc-dc-boost-module/,Module matching the 4-pin header on the schematic.
-AP2112K-3.3TRG1,3.3V regulator for logic,5,0.08,0.40,LCSC,https://www.lcsc.com/product-detail/C51118.html,Sold in 5s. Listed qty-5 price is $0.0761. One piece is used.
-AO3401A,P-channel MOSFET that switches display power,10,0.06,0.60,LCSC,https://www.lcsc.com/product-detail/C15127.html,AOS C15127. Minimum is 10. Listed 10+ price is $0.0589. One piece is used.
-USBLC6-2SC6,ESD protection for USB,5,0.18,0.90,LCSC,https://www.lcsc.com/product-detail/C7519.html,Sold in 5s. Listed qty-5 price is $0.1786. One piece is U11.
-USBLC6-4SC6,ESD protection for the button lines,5,0.17,0.85,LCSC,https://www.lcsc.com/product-detail/C111212.html,Sold in 5s. Listed qty-5 price is $0.1675. One piece is U13.
-TYPE-C-31-M-12,USB-C receptacle,5,0.19,0.95,LCSC,https://www.lcsc.com/product-detail/C165948.html,Same part as the schematic footprint. Sold in 5s at $0.1879. One piece is used.
-Keystone 1042,18650 battery holder,1,4.82,4.82,LCSC,https://www.lcsc.com/product-detail/C5249310.html,Listed reference price $4.8173. Page showed out of stock.
-PTS645SM43SMTR92LFS,Tactile buttons,5,0.21,1.05,LCSC,https://www.lcsc.com/product-detail/C221880.html,Matches SW1 SW3 SW6. Sold in 5s at $0.2054. Three are used. Reset and boot are different switches and are not this line.
-WS2812B-B/W,Addressable status LEDs,5,0.10,0.50,LCSC,https://www.lcsc.com/product-detail/C114586.html,Sold in 5s at $0.1042. Two are on the board.
-CL21B104KBCNNNC,0.1uF decoupling capacitors,20,0.02,0.40,LCSC,https://www.lcsc.com/product-detail/C1711.html,0805 100nF. Sold in 20s at $0.0151. The schematic uses 18 of this value.
+ESP32-S3-DEVKITC-1-N8R8,Main controller. Plugs into U2.,1,15.00,15.00,Mouser,https://www.mouser.com/ProductDetail/Espressif-Systems/ESP32-S3-DevKitC-1-N8R8,Mouser and DigiKey qty-1 price. The symbol has 22 pins on each side. The placed footprint is a 2x19 header.
+DRV8833PWPR,Dual H-bridge. U3.,1,2.10,2.10,LCSC,https://www.lcsc.com/product-detail/C50506.html,LCSC C50506 qty-1 price $2.0991. Footprint is HTSSOP-16.
+GC9A01 1.28in 240x240 round LCD module,Round eyes. DS1 and DS2.,2,8.90,17.80,Makerfabs,https://www.makerfabs.com/gc9a01-1-28-inch-round-lcd-module.html,The board footprint for each display is a 7-pin header. The header is a separate row.
+MPU-6050,Balance gyro. U5 bare QFN.,1,20.23,20.23,LCSC,https://www.lcsc.com/product-detail/C24112.html,"Bare chip matching the schematic. A GY-521 module would be cheaper. Cost cutting is planned. The design is not changing. Priced rows are already over the $65 cap before motors, servos, the blank rows, shipping, and tax."
+DS3231M,Real-time clock. U6.,1,,,,,"16-pin part. Placed footprint is SOIC-16 3.9 x 9.9 mm. The old row was DS3231MZ/V+, which is SOIC-8, so that price and link are removed. The symbol's library footprint is the wide SOIC-16W 7.5 mm. Do not order the 8-pin part."
+VL53L0CXV0DH/1,Distance sensor. U8.,1,5.18,5.18,Mouser,https://www.mouser.com/ProductDetail/STMicroelectronics/VL53L0CXV0DH-1,"Price is for this chip. The placed footprint is KiCad Sensor_Distance:ST_VL53L1x, tagged VL53L1x, with silk about 5.1 mm by 2.7 mm. A VL53L0X body is 4.4 x 2.4 x 1.0 mm. The land pattern does not match. Do not order against this footprint."
+MAX98357AETE+T,I2S speaker amplifier. U4.,1,1.33,1.33,LCSC,https://www.lcsc.com/product-detail/C910544.html,LCSC C910544 qty-1 price $1.3302. The speaker itself is a separate off-board row.
+INMP441ACEZ-R7,Microphone. MK1.,1,,,,,"Symbol is the bare LGA mic: SCK, SD, WS, L/R, GND, VDD, CHIPEN, plus extra GND pads. Placed footprint is a 1x05 pin header. A common INMP441 module has 6 pins. Those pins do not match this footprint, so the old module price is removed."
+MAX17048G+T10,Fuel gauge. U10.,1,2.17,2.17,LCSC,https://www.lcsc.com/product-detail/C2682616.html,LCSC C2682616 qty-1 price $2.1654.
+MT3608 boost module,Motor-rail boost. U1.,1,0.95,0.95,ProtoSupplies,https://protosupplies.com/product/mt3608-mini-adjustable-dc-dc-boost-module/,The board footprint is a 1x4 header. The header is a separate row.
+AP2112K-3.3TRG1,3.3V regulator. U7.,5,0.08,0.40,LCSC,https://www.lcsc.com/product-detail/C51118.html,Sold in 5s at $0.0761. One is used.
+AO3401A,Display power switch. Q4.,10,0.06,0.60,LCSC,https://www.lcsc.com/product-detail/C15127.html,Minimum 10 at $0.0589. One is used.
+USBLC6-2SC6,USB ESD diode. U11.,5,0.18,0.90,LCSC,https://www.lcsc.com/product-detail/C7519.html,Sold in 5s at $0.1786. One is used.
+USBLC6-4SC6,ESD diode. U13.,5,0.17,0.85,LCSC,https://www.lcsc.com/product-detail/C111212.html,Sold in 5s at $0.1675. One is used.
+TYPE-C-31-M-12,USB-C receptacle. J4.,5,0.19,0.95,LCSC,https://www.lcsc.com/product-detail/C165948.html,Sold in 5s at $0.1879. One is used. This is separate from the TP4056 module.
+PTS645 tactile switch,User buttons. SW1 SW3 SW6.,5,0.21,1.05,LCSC,https://www.lcsc.com/product-detail/C221880.html,Sold in 5s at $0.2054. Three are used. Reset and boot are different switches.
+WS2812B,Status LEDs. D7 and D8.,5,0.10,0.50,LCSC,https://www.lcsc.com/product-detail/C114586.html,Sold in 5s at $0.1042. Two are on the board. D7 value is WS2812B-5050 and D8 value is WS2812B. Same footprint.
+0.1uF 0805 capacitor,Decoupling. Eighteen placements.,20,0.02,0.40,LCSC,https://www.lcsc.com/product-detail/C1711.html,"C5 C6 C7 C9 C11 C16 C17 C21 C22 C25 C27 C29 C32 C33 C34 C35 C36 C37. Sold in 20s at $0.0151. Does not cover C8 or C13."
+TP4056 USB-C charger module,Charger. TP1.,1,,,,,Symbol is TP4056_USB_C_Module. Value field is empty. Footprint is a 1x6 pin header. No module part number on the schematic.
+Slide switch,Power switch. SW2.,1,,,,,Value says SW_SPST. Footprint is a slide SPDT: SW_Slide_SPDT_Straight_CK_OS102011MS2Q. No separate orderable part number checked.
+microSD slot,Card socket. J6.,1,,,,,Footprint name is microSD_HC_Molex_104031-0811. Price not checked.
+CR2032 coin cell holder,Coin cell holder. BT2.,1,,,,,Footprint is BatteryHolder_Keystone_3000_1x12mm. Price not checked.
+CR2032 coin cell,Cell for BT2.,1,,,,,Not a separate symbol. The holder is BT2.
+BAT54C,Diode. D5.,1,,,,,Footprint is SOT-23. Price not checked.
+1N5819,Schottky diode. D1.,1,,,,,Footprint is DO-41 horizontal. Price not checked.
+Phoenix screw terminal 1x2,J1 and J2.,2,,,,,"Footprint TerminalBlock_Phoenix_PT-1,5-2-5.0-H. Price not checked."
+Metz screw terminal 1x2,J5.,1,,,,,Footprint TerminalBlock_MetzConnect_Type055_RT01502HDWU. Not the same part as J1 and J2. Price not checked.
+Pin header 1x7,Display connectors. DS1 and DS2.,2,,,,,Footprint PinHeader_1x07_P2.54mm_Vertical. The LCD modules are a separate row.
+Pin header 1x6,Header footprint for TP1.,1,,,,,This is the footprint of the TP4056 symbol. It is not a second charger.
+Pin header 1x4,Header footprint for the boost module. U1.,1,,,,,Footprint FanPinHeader_1x04. The MT3608 module is a separate row.
+JST SH 1x4,I2C connector. J7.,1,,,,,Footprint is JST_SH_BM04B-SRSS-TB 1.0 mm. This is not a 2.54 mm pin header.
+Pin header 1x3,Servo headers. J3 and J10.,2,,,,,The MG90S servos are off-board and are a separate row.
+Fan pin header 1x3,Encoder connectors. J9 and Jd1.,2,,,,,Connectors only. No encoder modules are on the schematic.
+Pin header 1x1,Test point. J8.,1,,,,,
+Female header 1x22,Sockets for the DevKit. Two strips.,2,,,,,The symbol has pins J1_1 through J1_22 and J3_1 through J3_22. The placed footprint is PinHeader_2x19. Those do not match.
+JST PH 2-pin,Battery plug. BT1.,1,,,,,Footprint JST_PH_B2B-PH-K. The Keystone 1042 holder is not on the board. That row is removed.
+18650 holder with wires,Off-board holder that plugs into BT1.,1,,,,,Not a schematic symbol. Listed because BT1 is only the plug.
+10k 0805 resistor,Pull-ups and bias.,14,,,,,R1 R9 R12 R13 R14 R15 R16 R17 R18 R19 R20 R29 R30 R32.
+10k resistor on a SOT-23-6 footprint,R27 R36 R37 R38.,4,,,,,Value is 10k. Footprint is SOT-23-6. That is not a resistor package.
+5.1k axial resistor,R4 and R5.,2,,,,,Footprint is axial DIN0207.
+2.2k 0805 resistor,R10 and R11.,2,,,,,
+1k 0805 resistor,R25.,1,,,,,
+100k 0805 resistor,R28.,1,,,,,
+330 ohm resistor,R39.,1,,,,,Footprint is SOT-23-6. That is not a resistor package.
+0.2 ohm 1206 resistor,R23 and R24.,2,,,,,Schematic does not state a wattage. Footprint is 1206.
+100 ohm resistor,Requested value.,,,,,,No 100 ohm resistor is on the schematic.
+2.2uF 0805 capacitor,C14 and C50.,2,,,,,
+10uF 1206 capacitor,C4 C24 C26 C28.,4,,,,,
+10uF 0805 capacitor,C15.,1,,,,,Different footprint from the 1206 parts.
+22uF 0805 capacitor,C20.,1,,,,,
+100uF radial capacitor,C2.,1,,,,,Footprint CP_Radial_D10.0mm_P5.00mm.
+100uF electrolytic capacitor,C23.,1,,,,,Footprint CP_Elec_6.3x5.4. Not the same part as C2.
+1000uF radial capacitor,C3.,1,,,,,Footprint CP_Radial_D6.3mm_P2.50mm.
+2.2nF 0805 capacitor,C12.,1,,,,,
+10nF 0805 capacitor,C10 and C19.,2,,,,,
+1uF disc capacitor,C1.,1,,,,,Footprint is a 5 mm disc.
+0.1uF disc capacitor,C8.,1,,,,,Not covered by the 0805 reel.
+0.1uF 0603 capacitor,C13.,1,,,,,Not covered by the 0805 reel.
+LED 0805,D3.,1,,,,,Value is only LED. No color or MPN on the schematic.
+Reset button,SW4.,1,,,,,Footprint SW_PUSH_6mm.
+Boot button,SW5.,1,,,,,Footprint SW_PUSH_6mm.
+N20 motor with wheel,Wheel motors.,2,,,,,Not schematic symbols. J1 and J2 are the motor terminals. No motor part number on the board.
+MG90S servo,Servos.,2,,,,,Not schematic symbols. J3 and J10 are 3-pin headers.
+Speaker,Speaker for the MAX98357A.,1,,,,,Not a schematic symbol. No part number on the board.
+18650 cell,Main battery.,1,,,,,Not a schematic symbol. BT1 is the JST plug.
+microSD card,Card for J6.,1,,,,,Not a schematic symbol. J6 is the socket.
