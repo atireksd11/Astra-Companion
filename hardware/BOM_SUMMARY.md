@@ -1,28 +1,39 @@
 # BOM summary
 
-Updated 2026-10-12. Half Life only reads **hardware/bom.csv** for the Week 1 PCB tier. Do not import the other CSV files into the same $100 bucket.
+Updated 2026-10-12. **Half Life imports only `hardware/bom.csv`.** No other CSV files live in this repo.
 
-## Week 1 — PCB tier (`hardware/bom.csv`)
+## Week 1 — PCB tier (`bom.csv`)
 
-Board electronics: ESP32-S3, IMU, DRV8833, displays, mic, audio ICs, power modules wired to the PCB, connectors, headers, switches, LCSC line items on the board.
+Board electronics for the $100 PCB bucket.
 
 - Subtotal: **$90.06** (26 lines)
-- Leaves room under **$100** before tax and shipping (Half Life uses a small margin)
 
-Passives (resistor and capacitor assortments, **$15.20**) are in **hardware/bom-passives-lcsc.csv**. Order them with your LCSC shipment; they are not on the PCB tier import.
+## Week 2 — CAD / enclosure tier (add manually in Half Life)
 
-Optional populate-later parts (RTC, ToF, SD socket, backup cell) are in **hardware/bom-optional-dnp.csv**. Do not import that file into Half Life unless you actually populate those footprints.
+Not in `bom.csv`. Copy these when the Week 2 budget opens (~**$67.29**).
 
-## Week 2 — CAD / enclosure tier (`hardware/bom-week2.csv`)
+| Part | Qty | Total USD | Vendor |
+|------|-----|-----------|--------|
+| N20 encoder motor pair 6V ~300 RPM | 1 | 19.38 | Amazon.ca |
+| N20 wheels 43 mm | 1 | 3.50 | DFRobot |
+| Molicel P30 18650 | 1 | 13.65 | Battery Canada |
+| 18650 holder with leads | 1 | 1.37 | BC Robotics |
+| MG90S servo | 2 | 8.40 | BC Robotics |
+| microSD card 8GB (if using SD) | 1 | 20.99 | Amazon.ca |
 
-Mechanical and off-board power: N20 motors, wheels, 18650 cell and holder, MG90S servos, microSD card (when you use SD).
+Shell: teacher printer and filament at school (not listed).
 
-- Subtotal: **$67.29** (6 lines)
-- Shell printing: teacher printer and filament at school (not on this list)
+## LCSC passives (order with LCSC, not Half Life PCB import)
 
-## Full project (all priced files)
+~**$15.20** — resistor assortment six packs **$2.97**, capacitor and LED assortment eleven packs **$12.23**.
 
-Week 1 + Week 2 + passives LCSC ≈ **$171.55** before optional DNP and before PCB fab/assembly/shipping/HST.
+## DNP optional (populate later; not on any tier until needed)
+
+~**$15.39** — DS3231M $8.56 DigiKey, VL53L0X $2.78 Mouser, BAT54C $0.48 LCSC, Molex microSD socket $2.21 DigiKey, Keystone 3000 holder $0.41 DigiKey, CR1220 $0.95 Adafruit.
+
+## Full project rough total
+
+Week 1 + Week 2 + passives ≈ **$172.55** before optional DNP, PCB fab, shipping, HST.
 
 Printing: my teacher has a printer and filament at school. He might also lend or give some parts. I have not asked yet; I would guess better than 70% chance, but I am not counting on it.
 

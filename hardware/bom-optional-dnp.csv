@@ -1,7 +1,0 @@
-Part,Purpose,Qty,Unit Price (USD),Total Price (USD),Vendor,Link,Notes
-DS3231M+TRL,RTC U6. Do not populate yet.,1,8.56,8.56,DigiKey,https://www.digikey.com/en/products/detail/analog-devices-inc-maxim-integrated/DS3231M-TRL/2402421,DNP. Not on Half Life import.
-VL53L0CXV0DH/1,Distance sensor U8. Do not populate yet.,1,2.78,2.78,Mouser,https://www.mouser.com/ProductDetail/STMicroelectronics/VL53L0CXV0DH-1,DNP. Footprint is VL53L1x.
-BAT54C,Diode D5. Do not populate yet.,1,0.48,0.48,LCSC,,DNP.
-Molex 1040310811 microSD slot,Socket J6. Do not populate yet.,1,2.21,2.21,DigiKey,https://www.digikey.com/en/products/detail/molex/1040310811/2370379,DNP. Buy with Week 1 LCSC order if you populate SD later.
-Keystone 3000 12 mm coin cell retainer,BT2 holder. Do not populate yet.,1,0.41,0.41,DigiKey,https://www.digikey.com/en/products/detail/keystone-electronics/3000/227440,DNP. Matches PCB footprint.
-CR1220 3V lithium coin cell,BT2 backup. Do not populate yet.,1,0.95,0.95,Adafruit,https://www.adafruit.com/product/380,DNP. Pairs with Keystone 3000.
