@@ -14,6 +14,10 @@ credentials.json
 
 # EasyEDA / KiCad
 *-backups/
+*_restore_backup_*/
+hardware/astracompanion backup/
+hardware/astracompanion/.history/
+*.lck
 *.kicad_prl
 fp-info-cache
 *.zip.bak
