@@ -11,9 +11,7 @@ has a dumb mistake. Very possible at this hour.
 > is **not fab-ready yet**: DRC still has open power connections and silkscreen
 > cleanup. Please do not order these Gerbers because there aren't any final ones.
 
-<!-- Add the latest KiCad 3D render here:
 ![Astra Companion PCB](docs/images/pcb-render.png)
--->
 
 ## Hardware
 
