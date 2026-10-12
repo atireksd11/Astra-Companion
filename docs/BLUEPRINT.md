@@ -1,7 +1,3 @@
-# notes
-
-not a pitch deck. just what this thing actually is.
-
 ## the robot
 
 two wheels, balances next to a desk. gyro on core 0 so it doesnt fall while wifi is doing stuff on core 1. round lcd for the eye (GC9A01, not the oled i first wrote). talks through i2s mic/amp.
