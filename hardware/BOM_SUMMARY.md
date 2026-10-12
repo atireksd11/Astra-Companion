@@ -1,56 +1,50 @@
-# BOM summary
+# BOM summary — what the numbers mean
 
-Updated 2026-10-12. Half Life imports only **`hardware/bom.csv`**.
+Half Life only imports **`hardware/bom.csv`**.
 
-## Currency
+## What to type in Half Life (direct)
 
-Half Life columns are labeled USD, but some lines are **checkout CAD** (amount in the column is **CAD dollars**, not converted).
+| Field | Enter this | What it is |
+|-------|------------|------------|
+| **Parts** (from repo import) | whatever Half Life shows after import | Sum of the Total column on all rows |
+| **Tax & shipping for the whole order** | **12.50** | One guessed number for LCSC ship + Mouser ship + a little HST. **Not $70.** Not a real invoice yet. |
 
-| Rule | Rows |
-|------|------|
-| **USD** — use in **USD subtotal** | LCSC, DigiKey, Adafruit; Notes say `Currency USD` |
-| **CAD** — **not** in USD subtotal | Notes say `Currency CAD` (Mouser DevKit, Universal Solder displays) |
-| **USD planning** (CAD × 0.70) | Amazon.ca, Addison, Universal Solder mic, PiShop cable — still counted in USD subtotal until moved to raw CAD |
+After import, Half Life usually shows about **$90** for parts because it adds every line, including **CAD 21.60** and **CAD 11.34** as if they were USD. That is a display quirk; those two lines are **Canadian dollars** (see Notes: `Currency CAD`).
 
-## Week 1 — PCB tier (`bom.csv`)
+## The three totals (do not mix them up)
 
-| Rollup | Amount |
-|--------|--------|
-| **USD subtotal** (grant math) | **$57.09** |
-| **CAD subtotal** (paid at checkout) | **CAD 32.94** (ESP32 21.60 + 2× GC9A01 11.34) |
-| **Tax & shipping (Half Life field)** | **$12.50 USD** |
-| **USD tier check** | **$69.59 USD** (USD subtotal + tax/shipping; CAD lines paid separately) |
+1. **~$90** — Half Life “parts” total if it sums the whole CSV (USD + CAD mixed in one column). **This is not tax/shipping.**
 
-If Half Life sums every row in the import, it shows about **$90.03** — that mixes CAD into the USD column. Use the **USD subtotal** above for the grant cap; CAD lines are tagged in Notes.
+2. **$12.50** — **Only** the tax & shipping box. Shipping + tax **estimate** for Week 1, in **USD**.
 
-Re-run totals after any edit: USD = every row whose Notes do **not** contain `Currency CAD`.
+3. **~$70** — If you saw something near 70, it was probably **$57 USD parts + $12.50 tax/shipping ≈ $70**, i.e. **parts + shipping together**, not shipping alone.
 
-### Tax and shipping (enter in Half Life)
+## USD grant bucket (Week 1, LCSC / DigiKey / Adafruit / etc.)
 
-| Item | USD |
+Rows **without** `Currency CAD` in Notes add to about **$57.09 USD** (real LCSC/DigiKey/Adafruit checkout currency).
+
+## CAD you pay separately (not converted for that USD rollup)
+
+| Part | CAD |
 |------|-----|
-| LCSC economy ship to Canada | 6.00 |
-| Mouser Canada ship (DevKit) | 4.00 |
-| Estimated HST on remaining CAD lines (planning) | 2.50 |
-| **Total** | **12.50** |
+| ESP32 on Mouser.ca | 21.60 |
+| 2× GC9A01 Universal Solder | 11.34 |
+| **Total CAD checkout** | **32.94** |
 
-## Week 2 — CAD / enclosure tier (manual in Half Life, not in `bom.csv`)
+Plus HST on those Canadian orders at checkout (often ~13% in ON — not included above).
 
-| Part | Qty | Total USD | Vendor |
-|------|-----|-----------|--------|
-| N20 encoder motor pair 6V ~300 RPM | 1 | 19.38 | Amazon.ca (CAD 27.69 × 0.70) |
-| N20 wheels 43 mm | 1 | 3.50 | DFRobot |
-| Molicel P30 18650 | 1 | 13.65 | Battery Canada (CAD 19.50 × 0.70) |
-| 18650 holder with leads | 1 | 1.37 | BC Robotics |
-| MG90S servo | 2 | 8.40 | BC Robotics |
-| microSD card 8GB (if using SD) | 1 | 20.99 | Amazon.ca |
+## Is $12.50 tax/shipping “real”?
 
-## LCSC passives (not in `bom.csv`)
+**No.** It is a **planning guess** so the form is not blank:
 
-~**$15.20 USD** — resistor and capacitor packs on the same LCSC order.
+- LCSC ship to Canada ~$6 USD  
+- Mouser ship for the DevKit ~$4 USD  
+- ~$2.50 USD toward tax  
 
-## DNP optional (reference only)
+When you actually check out, replace **12.50** with **real shipping + tax from your receipts** (or use **0** until you know).
 
-~**$15.39 USD** — DS3231, VL53, BAT54C, Molex SD socket, Keystone 3000, CR1220.
+## Week 2, passives, optional
 
-Printing: teacher printer and filament at school.
+Not in `bom.csv`. See earlier notes in git history or add motors/battery manually when that tier opens. LCSC resistor/cap packs ~**$15.20 USD** on the same LCSC order as the chips.
+
+Printing: teacher printer at school (not on this list).
