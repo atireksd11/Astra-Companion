@@ -1,7 +1,10 @@
 # Needs price
 
-All rows in hardware/bom.csv now have a unit price and vendor.
+Every line in the split BOM files has a price.
 
-Optional DNP lines (microSD card, Keystone 3000 holder, CR1220) are priced for planning only; you do not need them for the first build if those features stay DNP.
+- **Week 1 Half Life import:** `hardware/bom.csv` only.
+- **Week 2 mechanical tier:** import `hardware/bom-week2.csv` when that tier opens (or add parts manually).
+- **Passives:** `hardware/bom-passives-lcsc.csv` — pay with LCSC, not the PCB tier import.
+- **DNP optional:** `hardware/bom-optional-dnp.csv` — reference only until you populate those parts.
 
-R23 and R24 are not on the list. Bridge those pads with solder when you build the board.
+R23 and R24: bridge with solder (DRV8833 sense to GND). Not a buy line.
