@@ -1,2 +1,28 @@
 Item,Qty,Supplier,Cost/item,Total Cost,link
-Estimated total shipping,1,,,$0.00,
+ESP32-S3-DevKitC-1-N8R8,1,Mouser Canada,$21.60,$21.60,
+MPU-6050,1,LCSC,$20.23,$20.23,https://www.lcsc.com/product-detail/C24112.html
+DRV8833PWPR,1,LCSC,$2.10,$2.10,https://www.lcsc.com/product-image/C50506.html
+TP4056 USB-C charger module with DW01,1,Amazon.ca,$9.69,$9.69,
+MT3608 boost module,1,Addison Electronique,$3.99,$3.99,
+GC9A01 1.28in round LCD module 7-pin,2,Universal Solder,$5.67,$11.34,https://www.universal-solder.ca/product/ips-tft-display-round-1-28-240x240-gc9a01-controller/
+INMP441 I2S microphone module 6-pin,1,Universal Solder,$3.99,$3.99,
+MAX98357AETE+T,1,LCSC,$1.86,$1.86,https://www.lcsc.com/product-detail/C910544.html
+MAX17048G+T10,1,LCSC,$2.17,$2.17,https://www.lcsc.com/product-detail/C2682616.html
+Thin plastic speaker 8 ohm 0.5W max,1,Adafruit,$1.75,$1.75,https://www.adafruit.com/product/1891
+AP2112K-3.3TRG1,5,LCSC,$0.17,$0.85,https://www.lcsc.com/product-detail/C51118.html
+AO3401A,10,LCSC,$0.06,$0.60,https://www.lcsc.com/product-detail/C15127.html
+USBLC6-2SC6,5,LCSC,$0.18,$0.90,https://www.lcsc.com/product-detail/C7519.html
+USBLC6-4SC6,5,LCSC,$0.17,$0.85,https://www.lcsc.com/product-detail/C111212.html
+WS2812B,5,LCSC,$0.10,$0.50,https://www.lcsc.com/product-detail/C114586.html
+1N5819,5,LCSC,$0.14,$0.70,https://www.lcsc.com/product-detail/C7427999.html
+TYPE-C-31-M-12,5,LCSC,$0.19,$0.95,https://www.lcsc.com/product-detail/C165948.html
+OS102011MS2QN1,1,DigiKey,$0.66,$0.66,https://www.digikey.com/en/products/detail/c-k/OS102011MS2QN1/411602
+PTS645 tactile switch,5,LCSC,$0.29,$1.45,https://www.lcsc.com/product-detail/C221880.html
+6 mm tactile button,5,LCSC,$0.18,$0.90,
+KF301 screw terminal 1x2,5,LCSC,$0.10,$0.50,
+2.54 mm male pin header 1x40,2,LCSC,$0.89,$1.78,
+2.54 mm female pin header 1x40 cut to 19,2,LCSC,$0.65,$1.30,
+JST PH 2-pin connector set,1,LCSC,$2.29,$2.29,
+JST SH BM04B-SRSS-TB 1.0 mm receptacle,5,LCSC,$0.20,$1.00,https://www.lcsc.com/product-detail/C160390.html
+JST SH 4-pin cable 1.0 mm,1,PiShop,$1.95,$1.95,
+Estimated total shipping,1,,,$6.55,
