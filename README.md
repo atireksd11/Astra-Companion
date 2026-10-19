@@ -1,89 +1,94 @@
 # Astra Companion
 
-A two-wheeled desktop robot with an ESP32-S3, two round eyes, a microphone,
-a speaker, and enough motor control to (eventually) stop falling over.
+Small two-wheeled desk robot with big round eyes, a custom ESP32-S3 carrier PCB, and a PETG chassis. Hack Club **Half Life / OnBoard** project.
 
-This is my Hack Club Half Life / OnBoard project. The PCB is a carrier for an
-ESP32-S3 DevKitC-1, which means I can unplug the expensive bit if the first board
-has a dumb mistake. Very possible at this hour.
+| Week | Focus | Grant tier | Parts file |
+|------|--------|------------|------------|
+| **1** | KiCad carrier + components | ~$103 (Tier 2) | [`hardware/bom.csv`](hardware/bom.csv) |
+| **2** | CAD, print, N20 drive | ~$30 (Tier 1) | [`hardware/bom-cad.csv`](hardware/bom-cad.csv) |
 
-> **Current state:** the schematic and first PCB route are in the repo. The board
-> is **not fab-ready yet**: DRC still has open power connections and silkscreen
-> cleanup. Please do not order these Gerbers because there aren't any final ones.
+---
 
-![Astra Companion PCB](docs/images/pcb-render.png)
+## CAD (Week 2)
 
-## Hardware
+Shell, head, motor plate, and stack-up for the PCB. Full notes: [`docs/CAD.md`](docs/CAD.md).
 
-| Block | Part | Notes |
-| --- | --- | --- |
-| Brain | ESP32-S3-DEVKITC-1-N8R8 | Wi-Fi/BLE, 8 MB flash + 8 MB PSRAM |
-| Eyes | 2× GC9A01 240×240 round TFT | Shared SPI clock/data, separate GPIO14/GPIO15 chip select |
-| Motion | MPU-6050 | I2C on GPIO8/GPIO9, interrupt on GPIO13 |
-| Motors | DRV8833 | Two N20 channels, GPIO39–GPIO42 |
-| Audio in | INMP441 | I2S microphone |
-| Audio out | MAX98357A | I2S class-D speaker amp |
-| Power | TP4056 + MT3608 + AP2112K-3.3 | Li-ion charging, motor boost, 3.3 V logic |
-| Extras | MAX17048, DS3231M, VL53L0X, microSD | Fuel gauge, RTC, distance sensor, storage |
+| Front | Exploded stack |
+|-------|----------------|
+| ![Front render](docs/images/cad-front.png) | ![Exploded](docs/images/cad-exploded.png) |
 
-The actual schematic grew past the original BOM. For what is physically placed
-right now, use [`hardware/BOM2.md`](hardware/BOM2.md), not the old planning list.
+| PCB in the stack | Wheels + caster |
+|------------------|-----------------|
+| ![PCB stack](docs/images/cad-pcb-stack.png) | ![Side with wheels](docs/images/cad-wheels.png) |
 
-## How the firmware is split
+Mechanical BOM (~**$28.60** mixed on the CSV): N20 motors, 43 mm wheels, brackets, 12 mm ball caster, SG90, M3 inserts/screws, PETG (pro-rated). Import **`hardware/bom-cad.csv`** on Half Life for this tier.
 
-The Arduino core already runs on FreeRTOS, so I am using it instead of building
-another scheduler for fun:
+---
 
-- `balanceTask` - Core 0, high priority, 5 ms period. MPU6050 read, angle
-  estimate, PID, and DRV8833 LEDC output. It never touches SPI or Wi-Fi.
-- `uiTask` - Core 1. Owns the shared SPI bus and both GC9A01 displays. It only
-  redraws when the eye state changes, because repainting 115,200 pixels for no
-  reason is a great way to steal time from everything else.
+## PCB (Week 1)
 
-The task boundary is deliberate. A network timeout or a big eye animation should
-not turn the robot into a falling Wi-Fi status light.
+DevKit-based carrier: MPU-6050, DRV8833, power (TP4056 + MT3608 + AP2112K), dual GC9A01, audio and expansion on the schematic.
 
-## Repository
+![PCB render](docs/images/pcb-render.png)
 
-```text
-hardware/astracompanion/   KiCad schematic, PCB, and project
-hardware/BOM2.md           BOM generated from the real schematic
-firmware/                  PlatformIO / Arduino-ESP32 firmware
-docs/PINOUT.md             pin map exported from the KiCad netlist
-cad/                       enclosure work (later)
-astracompanion.ato         early hardware-as-code experiment; not authoritative
-```
+KiCad project: [`hardware/astracompanion/`](hardware/astracompanion/). Parts import: [`hardware/bom.csv`](hardware/bom.csv). Grant math: [`hardware/BOM_SUMMARY.md`](hardware/BOM_SUMMARY.md).
 
-## Firmware build
+**Honest status:** placement and routing are still being finished (power nets and DevKit **3V3** tie were open in the last netlist). Do not fab until unrouted = 0 and DRC is clean. Gerbers go in [`hardware/src/`](hardware/src/) after plot.
 
-1. Install [PlatformIO](https://platformio.org/) in VS Code or Cursor.
-2. Open the `firmware/` folder as the PlatformIO project.
-3. Connect the ESP32-S3 DevKitC-1 over USB.
-4. Build and upload:
+---
+
+## What the firmware does today
+
+**Balance (Core 0).** MPU-6050 at 200 Hz, complementary tilt, PID into DRV8833. Keeps SPI/Wi-Fi off that core so eye updates do not starve the loop.
+
+**Eyes (Core 1).** Two GC9A01 on one SPI bus; CS on GPIO14/15. States: boot, awake, worried (>35° tilt), sleeping.
+
+**Audio.** INMP441 + MAX98357A wired on the board; streaming not implemented yet.
+
+**Motors default off** until you type `motors on` in the serial monitor (115200). Lift the wheels first.
 
 ```bash
 cd firmware
-pio run
 pio run -t upload
 pio device monitor
 ```
 
-Motors remain disabled in the starter firmware (`MOTOR_OUTPUT_ENABLED = false`).
-Test the IMU and serial output first, then lift the wheels off the desk before
-turning motor output on. Seriously.
+Pin map: [`docs/PINOUT.md`](docs/PINOUT.md). More detail: [`firmware/README.md`](firmware/README.md).
 
-## PCB build
+---
 
-1. Open `hardware/astracompanion/astracompanion.kicad_pro` in KiCad 10.
-2. Finish every ratsnest line, especially `+3V3`, `+5V`, and `VBUS`.
-3. Run DRC and get **unconnected items to zero**.
-4. Move/hide overlapping reference text.
-5. Plot Gerbers and drill files only after DRC is clean.
-6. Upload to JLCPCB as 2-layer FR-4, 1.6 mm, minimum quantity.
+## Repo layout
 
-## Power warning
+```text
+docs/                 PINOUT, CAD write-up, images
+firmware/             PlatformIO / ESP32-S3
+hardware/
+  astracompanion/     KiCad schematic + PCB
+  bom.csv             Week 1 Half Life import
+  bom-cad.csv         Week 2 Half Life import
+  BOM_SUMMARY.md      PCB tier money notes
+  BOM_CAD_SUMMARY.md  CAD tier money notes
+  README.md           Which BOM is which
+JOURNAL.md            Mirrored from Half Life (edits overwritten on sync)
+BOM.md                Mirrored from Half Life (same)
+```
 
-The battery and boost section can source enough current to make mistakes hot.
-Check the 3.3 V and 5 V rails with a multimeter before plugging in the DevKit.
-Do not feed the MT3608 output into the ESP32 3V3 pin.
+---
 
+## Power (carrier)
+
+```text
+USB-C / TP4056 → 18650 → MT3608 → +5 V (motors, amp, LEDs)
+                              └─ AP2112K → +3.3 V logic
+```
+
+Displays run from **+3V3_DISP** through Q4 (GPIO17 enable). Measure rails before seating the DevKit.
+
+---
+
+## Submitting to Half Life
+
+- **Week 2 (now):** `bom-cad.csv`, cart screenshots for mechanical parts, CAD images above (or your Fusion screenshots), log **6 hours** on chassis/CAD/print prep.
+- **Week 1 PCB:** `bom.csv`, vendor cart screenshots, Gerbers when routing is done.
+
+Root `JOURNAL.md` / `BOM.md` are copies from the site — update the project on Half Life; sync pulls them back here.

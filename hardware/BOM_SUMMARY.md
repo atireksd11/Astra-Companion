@@ -1,6 +1,8 @@
-# BOM summary
+# BOM summary (PCB — Week 1)
 
-Half Life imports **`hardware/bom.csv`**.
+Half Life **Week 1 / Tier 2** imports **`hardware/bom.csv`**.
+
+Week 2 mechanical tier uses **`hardware/bom-cad.csv`** — see [`BOM_CAD_SUMMARY.md`](BOM_CAD_SUMMARY.md) and [`../docs/CAD.md`](../docs/CAD.md).
 
 ## CSV columns
 

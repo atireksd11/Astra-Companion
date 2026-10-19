@@ -1,0 +1,9 @@
+Part,Purpose,Qty,Currency,Unit Price,Total Price,Vendor,Link,Notes
+N20 Micro Metal Gearmotor 6V 300 RPM,Drive motors for left/right wheels,2,USD,3.50,7.00,Amazon / AliExpress,,300 RPM class; 3 mm D-shaft; mates with DRV8833 on carrier PCB.
+Micro rubber wheel 43 mm,Drive wheels on N20 shafts,2,USD,1.25,2.50,Amazon / AliExpress,,Press-fit on 3 mm D-shaft.
+N20 motor bracket mount,Mounts each motor to chassis floor,2,USD,0.60,1.20,Amazon / AliExpress,,Usually includes M2 screws for motor face.
+Metal ball caster 12 mm,Rear third contact / balance helper,1,USD,1.50,1.50,Amazon / RobotShop,,Omni ball; mount under rear of chassis.
+SG90 9g micro servo,Head tilt or ear motion (optional mechanism),1,USD,2.50,2.50,Amazon / AliExpress,,3-pin header; GPIO5 on PCB (SERVO_PWM).
+M3 brass heat-set insert 4 mm x 5 mm,Threads in PETG shell and chassis,30,USD,0.08,2.40,Amazon / AliExpress,,Install with soldering iron; mate with M3 screws below.
+M3 stainless hex button screw 8 mm and 12 mm mix,Closes shells; holds PCB standoffs,30,USD,0.05,1.50,Amazon / hardware store,,Split 8 mm and 12 mm as needed for stack height.
+PETG filament 1 kg roll (pro-rated ~300 g print),Printed body head chassis and mounts,1,CAD,10.00,10.00,Amazon / Elegoo,,WEEK2-CAD. Charge ~300 g of a 1 kg roll (~CAD 10); full roll ~CAD 14-18.
