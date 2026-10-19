@@ -1,13 +1,9 @@
-# cad
+# CAD exports
 
-not this week.
+| File | Description |
+|------|-------------|
+| [`astra-companion-chassis-assembly.step`](astra-companion-chassis-assembly.step) | Full mechanical assembly (PETG shell, head, chassis plate, motor mounts). Exported from the main Fusion design (`micro_robot_assembly`). |
 
-body in fusion 360 (or onshape if fusion is being annoying). needs:
+Open in Fusion 360, FreeCAD, or Onshape. Week 2 Half Life repo copy: [Astra-Companion-Cad](https://github.com/atireksd11/Astra-Companion-Cad).
 
-- n20 mounts
-- 18650 bay
-- hole / bezel for the 1.28" round lcd
-- pcb standoffs
-- somewhere the speaker isnt rattling against the wall
-
-print after the board outline is real so the holes actually line up.
+Renders live in [`docs/images/`](../docs/images/).

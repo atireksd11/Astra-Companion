@@ -21,7 +21,7 @@ Shell, head, motor plate, and stack-up for the PCB. Full notes: [`docs/CAD.md`](
 |------------------|-----------------|
 | ![PCB stack](docs/images/cad-pcb-stack.png) | ![Side with wheels](docs/images/cad-wheels.png) |
 
-Mechanical BOM (~**$28.60** mixed on the CSV): N20 motors, 43 mm wheels, brackets, 12 mm ball caster, SG90, M3 inserts/screws, PETG (pro-rated). Import **`hardware/bom-cad.csv`** on Half Life for this tier.
+Mechanical BOM (~**$28.60** mixed on the CSV): N20 motors, 43 mm wheels, brackets, 12 mm ball caster, SG90, M3 inserts/screws, PETG (pro-rated). STEP export: [`cad/astra-companion-chassis-assembly.step`](cad/astra-companion-chassis-assembly.step). Week 2 GitHub: [**Astra-Companion-Cad**](https://github.com/atireksd11/Astra-Companion-Cad).
 
 ---
 
@@ -60,6 +60,7 @@ Pin map: [`docs/PINOUT.md`](docs/PINOUT.md). More detail: [`firmware/README.md`]
 ## Repo layout
 
 ```text
+cad/                  chassis assembly STEP export
 docs/                 PINOUT, CAD write-up, images
 firmware/             PlatformIO / ESP32-S3
 hardware/
