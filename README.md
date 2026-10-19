@@ -5,7 +5,7 @@ Small two-wheeled desk robot with big round eyes, a custom ESP32-S3 carrier PCB,
 | Week | Focus | Grant tier | Parts file |
 |------|--------|------------|------------|
 | **1** | KiCad carrier + components | ~$103 (Tier 2) | [`hardware/bom.csv`](hardware/bom.csv) |
-| **2** | CAD, print, N20 drive | ~$30 (Tier 1) | [`hardware/bom-cad.csv`](hardware/bom-cad.csv) |
+| **2** | CAD, print, N20 drive | ~$30 (Tier 1) | [**Astra-Companion-Cad**](https://github.com/atireksd11/Astra-Companion-Cad) repo |
 
 ---
 
