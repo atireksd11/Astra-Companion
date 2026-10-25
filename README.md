@@ -1,57 +1,34 @@
 # Astra Companion
 
-Small two-wheeled desk robot with big round eyes, a custom ESP32-S3 carrier PCB, and a PETG chassis. Hack Club **Half Life / OnBoard** project.
+This repo is the **Week 1** board: a carrier PCB for an ESP32-S3 DevKit that powers a small two wheeled desk robot with round eyes, a mic, a speaker, and motor drivers. It is my Hack Club Half Life / OnBoard project. The plastic body and mechanical parts live in a separate repo ([Astra-Companion-Cad](https://github.com/atireksd11/Astra-Companion-Cad)); this one is KiCad, BOM, and firmware for the PCB.
 
-| Week | Focus | Grant tier | Parts file |
-|------|--------|------------|------------|
-| **1** | KiCad carrier + components | ~$103 (Tier 2) | [`hardware/bom.csv`](hardware/bom.csv) |
-| **2** | CAD, print, N20 drive | ~$30 (Tier 1) | [**Astra-Companion-Cad**](https://github.com/atireksd11/Astra-Companion-Cad) repo |
+The board is built around a **ESP32-S3-DEVKITC-1** so the expensive module can stay on headers. If the first spin has a dumb mistake, I can swap the DevKit without rebuying everything.
 
----
+**Where things stand:** schematic and layout are in the repo but the board is **not fab ready yet**. Power nets and the DevKit 3V3 tie still needed cleanup in the last pass. Do not order Gerbers until every net is routed and DRC is clean.
 
-## CAD (Week 2)
+## The PCB
 
-Shell, head, motor plate, and stack-up for the PCB. Full notes: [`docs/CAD.md`](docs/CAD.md).
+MPU-6050 for balance, DRV8833 for two N20 channels, TP4056 + MT3608 + AP2112K for battery and rails, dual GC9A01 round displays on SPI, INMP441 and MAX98357A for audio, plus fuel gauge, RTC, ToF, and microSD on the schematic. For what is actually on the board right now, use [hardware/BOM2.md](hardware/BOM2.md) (the older planning list drifted).
 
-| Front | Exploded stack |
-|-------|----------------|
-| ![Front render](docs/images/cad-front.png) | ![Exploded](docs/images/cad-exploded.png) |
+![KiCad PCB layout](docs/images/pcb-layout-kicad.png)
 
-| PCB in the stack | Wheels + caster |
-|------------------|-----------------|
-| ![PCB stack](docs/images/cad-pcb-stack.png) | ![Side with wheels](docs/images/cad-wheels.png) |
+![PCB 3D top](docs/images/pcb-3d-top.png)
 
-Mechanical BOM (~**$28.60** mixed on the CSV): N20 motors, 43 mm wheels, brackets, 12 mm ball caster, SG90, M3 inserts/screws, PETG (pro-rated). STEP export: [`cad/astra-companion-chassis-assembly.step`](cad/astra-companion-chassis-assembly.step). Week 2 GitHub: [**Astra-Companion-Cad**](https://github.com/atireksd11/Astra-Companion-Cad).
+![PCB 3D angle](docs/images/pcb-3d-angle.png)
 
----
+![PCB render](docs/images/pcb-render.png)
 
-## PCB (Week 1)
+Open the project in KiCad 10: [hardware/astracompanion/](hardware/astracompanion/). Parts list for grants: [hardware/bom.csv](hardware/bom.csv). Notes on cost tiers: [hardware/BOM_SUMMARY.md](hardware/BOM_SUMMARY.md). When routing is done, plot Gerbers into [hardware/src/](hardware/src/).
 
-DevKit-based carrier: MPU-6050, DRV8833, power (TP4056 + MT3608 + AP2112K), dual GC9A01, audio and expansion on the schematic.
+## Firmware
 
-| KiCad layout (2D) | 3D board view |
-|-------------------|---------------|
-| ![KiCad PCB layout](docs/images/pcb-layout-kicad.png) | ![PCB 3D top](docs/images/pcb-3d-top.png) |
+Arduino on ESP32 already runs FreeRTOS, so the firmware splits work that way on purpose.
 
-| 3D angle | KiCad 3D render |
-|----------|-----------------|
-| ![PCB 3D angle](docs/images/pcb-3d-angle.png) | ![PCB render](docs/images/pcb-render.png) |
+On **core 0**, a balance loop reads the MPU6050, estimates tilt, and drives the DRV8833. That task does not touch SPI or WiFi so networking or display work cannot starve the PID loop.
 
-KiCad project: [`hardware/astracompanion/`](hardware/astracompanion/). Parts import: [`hardware/bom.csv`](hardware/bom.csv). Grant math: [`hardware/BOM_SUMMARY.md`](hardware/BOM_SUMMARY.md).
+On **core 1**, the UI task owns SPI and both GC9A01 eyes. It only redraws when the expression changes so it is not repainting 115k pixels for no reason.
 
-**Honest status:** placement and routing are still being finished (power nets and DevKit **3V3** tie were open in the last netlist). Do not fab until unrouted = 0 and DRC is clean. Gerbers go in [`hardware/src/`](hardware/src/) after plot.
-
----
-
-## What the firmware does today
-
-**Balance (Core 0).** MPU-6050 at 200 Hz, complementary tilt, PID into DRV8833. Keeps SPI/Wi-Fi off that core so eye updates do not starve the loop.
-
-**Eyes (Core 1).** Two GC9A01 on one SPI bus; CS on GPIO14/15. States: boot, awake, worried (>35° tilt), sleeping.
-
-**Audio.** INMP441 + MAX98357A wired on the board; streaming not implemented yet.
-
-**Motors default off** until you type `motors on` in the serial monitor (115200). Lift the wheels first.
+Audio hardware is wired; streaming voice over the board is not in this firmware yet. Motors stay **off** until you type `motors on` in the serial monitor at 115200. Lift the wheels before you do that.
 
 ```bash
 cd firmware
@@ -59,43 +36,20 @@ pio run -t upload
 pio device monitor
 ```
 
-Pin map: [`docs/PINOUT.md`](docs/PINOUT.md). Repo map and weekly focus: [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md). Firmware layout: [`firmware/README.md`](firmware/README.md).
+Pin map: [docs/PINOUT.md](docs/PINOUT.md). More context: [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) and [firmware/README.md](firmware/README.md).
 
----
+## What is in this repo
 
-## Repo layout
-
-```text
-cad/                  chassis assembly STEP export
-docs/                 PINOUT, CAD write-up, images
-firmware/             PlatformIO / ESP32-S3
-hardware/
-  astracompanion/     KiCad schematic + PCB
-  bom.csv             Week 1 Half Life import
-  bom-cad.csv         Week 2 Half Life import
-  BOM_SUMMARY.md      PCB tier money notes
-  BOM_CAD_SUMMARY.md  CAD tier money notes
-  README.md           Which BOM is which
-JOURNAL.md            Mirrored from Half Life (edits overwritten on sync)
-BOM.md                Mirrored from Half Life (same)
+```
+hardware/astracompanion/   KiCad schematic and PCB
+hardware/bom.csv           grant import for the PCB parts
+hardware/BOM2.md           BOM from the real schematic
+firmware/                  PlatformIO project for the DevKit
+docs/                      pinout, images, dev notes
 ```
 
----
+## Power
 
-## Power (carrier)
+USB C and the TP4056 charge an 18650. The MT3608 boosts for +5 V (motors, amp, LEDs). An AP2112K feeds +3.3 V logic. The displays use +3V3_DISP through a GPIO enable. Measure the rails with a multimeter before you seat the DevKit. Do not feed the boost output into the ESP32 3V3 pin.
 
-```text
-USB-C / TP4056 → 18650 → MT3608 → +5 V (motors, amp, LEDs)
-                              └─ AP2112K → +3.3 V logic
-```
-
-Displays run from **+3V3_DISP** through Q4 (GPIO17 enable). Measure rails before seating the DevKit.
-
----
-
-## Submitting to Half Life
-
-- **Week 2 (now):** `bom-cad.csv`, cart screenshots for mechanical parts, CAD images above (or your Fusion screenshots), log **6 hours** on chassis/CAD/print prep.
-- **Week 1 PCB:** `bom.csv`, vendor cart screenshots, Gerbers when routing is done.
-
-Root `JOURNAL.md` / `BOM.md` are copies from the site — update the project on Half Life; sync pulls them back here.
+The battery section can source enough current to make mistakes hot. Treat it like real hardware, not a breadboard toy.
