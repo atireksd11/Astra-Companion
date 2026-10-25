@@ -29,7 +29,13 @@ Mechanical BOM (~**$28.60** mixed on the CSV): N20 motors, 43 mm wheels, bracket
 
 DevKit-based carrier: MPU-6050, DRV8833, power (TP4056 + MT3608 + AP2112K), dual GC9A01, audio and expansion on the schematic.
 
-![PCB render](docs/images/pcb-render.png)
+| KiCad layout (2D) | 3D board view |
+|-------------------|---------------|
+| ![KiCad PCB layout](docs/images/pcb-layout-kicad.png) | ![PCB 3D top](docs/images/pcb-3d-top.png) |
+
+| 3D angle | KiCad 3D render |
+|----------|-----------------|
+| ![PCB 3D angle](docs/images/pcb-3d-angle.png) | ![PCB render](docs/images/pcb-render.png) |
 
 KiCad project: [`hardware/astracompanion/`](hardware/astracompanion/). Parts import: [`hardware/bom.csv`](hardware/bom.csv). Grant math: [`hardware/BOM_SUMMARY.md`](hardware/BOM_SUMMARY.md).
 
@@ -53,7 +59,7 @@ pio run -t upload
 pio device monitor
 ```
 
-Pin map: [`docs/PINOUT.md`](docs/PINOUT.md). More detail: [`firmware/README.md`](firmware/README.md).
+Pin map: [`docs/PINOUT.md`](docs/PINOUT.md). Repo map and weekly focus: [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md). Firmware layout: [`firmware/README.md`](firmware/README.md).
 
 ---
 
