@@ -6,11 +6,11 @@ Grant import file: [bom-audio-module.csv](bom-audio-module.csv).
 
 | Part | Qty | Unit | Total | Where |
 |------|-----|------|-------|-------|
-| PGN 608-ZZ ball bearings (10 pack, 8 by 22 by 7 mm) | 1 pack | $12.95 | $12.95 | Amazon.ca |
-| MG90S metal gear micro servo (2 pack) | 1 pack | $14.99 | $14.99 | Amazon.ca |
+| [PGN 608-ZZ ball bearings](https://www.amazon.ca/gp/product/B07XLV1W2M/ref=ox_sc_act_title_2?smid=A3RMJZMAP3U4RK&psc=1) (10 pack, 8 by 22 by 7 mm) | 10 | $1.30 | $12.95 | Amazon.ca |
+| [MG90S metal gear micro servo](https://www.amazon.ca/gp/product/B0BHYHKF2P/ref=ox_sc_act_title_1?smid=A1AEYBYG92X8UY&psc=1) (2 pack) | 2 | $7.50 | $14.99 | Amazon.ca |
 | Tax and shipping | | | about $5.00 | Prime / domestic |
 
-Parts subtotal is **$27.94** before tax and shipping.
+Parts subtotal is **$27.94** before tax and shipping. Unit price is per piece. The totals are the pack prices Amazon charges.
 
 ## What each part does
 

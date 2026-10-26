@@ -1,4 +1,4 @@
 Part,Purpose,Qty,Currency,Unit Price,Total Price,Vendor,Link,Notes
-PGN 608-ZZ Ball Bearings (10-pack),Top and bottom 8x22x7 mm radial bearings for the neck pivot,1,CAD,12.95,12.95,Amazon.ca,,Use two from the pack for the head pan axis; keep the rest as spares.
-MG90S Metal Gear Micro Servo (2-pack),Metal gear 180 degree pan actuator for the head (replaces weak SG90),1,CAD,14.99,14.99,Amazon.ca,,One servo drives pan; second unit is spare or future tilt.
+PGN 608-ZZ Ball Bearings (10-pack),Top and bottom 8x22x7 mm radial bearings for the neck pivot,10,CAD,1.295,12.95,Amazon.ca,https://www.amazon.ca/gp/product/B07XLV1W2M/ref=ox_sc_act_title_2?smid=A3RMJZMAP3U4RK&psc=1,Amazon shows about $1.30 each. Pack total is $12.95. Use two for the head pan axis; keep the rest as spares.
+MG90S Metal Gear Micro Servo (2-pack),Metal gear 180 degree pan actuator for the head (replaces weak SG90),2,CAD,7.495,14.99,Amazon.ca,https://www.amazon.ca/gp/product/B0BHYHKF2P/ref=ox_sc_act_title_1?smid=A1AEYBYG92X8UY&psc=1,About $7.50 each. Pack total is $14.99. One servo drives pan; second unit is spare or future tilt.
 Tax and shipping,,,,,~5.00,,,Domestic / Prime; handled separately from the line items above.

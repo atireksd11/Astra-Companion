@@ -28,11 +28,11 @@ The CAD shows how the speaker panel bolts to the side of the torso, how the driv
 
 | Part | Qty | Unit | Total | Where |
 |------|-----|------|-------|-------|
-| PGN 608-ZZ ball bearings, 10 pack (8 by 22 by 7 mm) | 1 pack | $12.95 | $12.95 | Amazon.ca |
-| MG90S metal gear micro servo, 2 pack | 1 pack | $14.99 | $14.99 | Amazon.ca |
+| [PGN 608-ZZ ball bearings, 10 pack](https://www.amazon.ca/gp/product/B07XLV1W2M/ref=ox_sc_act_title_2?smid=A3RMJZMAP3U4RK&psc=1) (8 by 22 by 7 mm) | 10 | $1.30 | $12.95 | Amazon.ca |
+| [MG90S metal gear micro servo, 2 pack](https://www.amazon.ca/gp/product/B0BHYHKF2P/ref=ox_sc_act_title_1?smid=A1AEYBYG92X8UY&psc=1) | 2 | $7.50 | $14.99 | Amazon.ca |
 | Tax and shipping | | | about $5 | Prime / domestic |
 
-The bearing pack gives you spares after you use two on the neck. The MG90S pack gives you one pan servo and one spare (or a future tilt). Full writeup and grant CSV: [hardware/BOM_AUDIO_MODULE.md](hardware/BOM_AUDIO_MODULE.md) and [hardware/bom-audio-module.csv](hardware/bom-audio-module.csv).
+Unit price is per piece. The totals are the pack prices Amazon charges. The bearing pack gives you spares after you use two on the neck. The MG90S pack gives you one pan servo and one spare (or a future tilt). Full writeup and grant CSV: [hardware/BOM_AUDIO_MODULE.md](hardware/BOM_AUDIO_MODULE.md) and [hardware/bom-audio-module.csv](hardware/bom-audio-module.csv).
 
 Exploded view of the head, speaker side panel, and neck stack:
 
