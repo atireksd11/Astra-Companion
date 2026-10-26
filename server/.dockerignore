@@ -1,0 +1,12 @@
+__pycache__
+.pytest_cache
+*.db
+*.db-shm
+*.db-wal
+*.db.bak*
+.venv
+models/
+data/
+cache/
+.env
+config.json

@@ -1,244 +1,192 @@
 #include <Arduino.h>
-#include <SPI.h>
-#include <Wire.h>
 
-#include <Adafruit_GC9A01A.h>
-#include <Adafruit_MPU6050.h>
-#include <Adafruit_Sensor.h>
+#include <cctype>
+#include <cstring>
 
+#include "aim.h"
+#include "audio.h"
+#include "balance.h"
+#include "listener.h"
+#include "net.h"
 #include "pins.h"
+#include "ui.h"
 
 namespace {
 
-constexpr uint32_t serialBaud = 115200;
-constexpr uint32_t balancePeriodMs = 5;  // 200 Hz
-constexpr uint32_t motorPwmFrequency = 20000;
-constexpr uint8_t motorPwmResolution = 8;
-constexpr uint8_t leftPwmChannel = 0;
-constexpr uint8_t rightPwmChannel = 1;
+constexpr uint32_t kSerialBaud = 115200;
 
-// Leave this false until the IMU axes, motor direction, and emergency stop have
-// been checked with the wheels off the desk.
-constexpr bool motorOutputEnabled = false;
+void printHelp() {
+  Serial.println("commands:");
+  Serial.println("  motors on|off");
+  Serial.println("  eyes boot|awake|worried|sleeping");
+  Serial.println("  beep");
+  Serial.println("  volume 0.2");
+  Serial.println("  mic");
+  Serial.println("  record");
+  Serial.println("  play");
+  Serial.println("  wifi");
+  Serial.println("  listen on|off");
+  Serial.println("  head on|off");
+  Serial.println("  status");
+}
 
-Adafruit_MPU6050 imu;
-Adafruit_GC9A01A leftEye(Pins::displayLeftCs, Pins::displayDc,
-                         Pins::displayReset);
-Adafruit_GC9A01A rightEye(Pins::displayRightCs, Pins::displayDc,
-                          Pins::displayReset);
-
-enum class EyeState : uint8_t {
-  boot,
-  awake,
-  worried,
-  sleeping,
-};
-
-QueueHandle_t eyeStateQueue = nullptr;
-bool imuReady = false;
-
-struct PidController {
-  float kp = 18.0F;
-  float ki = 0.0F;
-  float kd = 0.8F;
-  float integral = 0.0F;
-  float previousError = 0.0F;
-
-  float update(float target, float measured, float dtSeconds) {
-    const float error = target - measured;
-    integral = constrain(integral + error * dtSeconds, -25.0F, 25.0F);
-    const float derivative = (error - previousError) / dtSeconds;
-    previousError = error;
-    return kp * error + ki * integral + kd * derivative;
+void handleCommand(char *line) {
+  while (*line == ' ') {
+    ++line;
   }
-};
 
-void writeMotor(gpio_num_t directionPin, uint8_t pwmChannel,
-                int16_t signedDuty) {
-  signedDuty = constrain(signedDuty, -255, 255);
-
-  if (!motorOutputEnabled || signedDuty == 0) {
-    digitalWrite(directionPin, LOW);
-    ledcWrite(pwmChannel, 0);
+  if (line[0] == '\0' || strcmp(line, "help") == 0) {
+    printHelp();
     return;
   }
 
-  if (signedDuty > 0) {
-    digitalWrite(directionPin, LOW);
-    ledcWrite(pwmChannel, signedDuty);
-  } else {
-    // With DRV8833 phase/enable drive, reverse is IN1 high while IN2 is
-    // inverted PWM. Verify this direction on the bench before balancing.
-    digitalWrite(directionPin, HIGH);
-    ledcWrite(pwmChannel, 255 - abs(signedDuty));
+  if (strcmp(line, "motors off") == 0) {
+    balanceSetMotorsEnabled(false);
+    balanceStopMotorsNow();
+    digitalWrite(Pins::motorSleep, LOW);
+    Serial.println("motors off");
+    return;
   }
-}
 
-void stopMotors() {
-  writeMotor(Pins::motorLeftDirection, leftPwmChannel, 0);
-  writeMotor(Pins::motorRightDirection, rightPwmChannel, 0);
-}
-
-void setEyeState(EyeState state) {
-  if (eyeStateQueue != nullptr) {
-    xQueueOverwrite(eyeStateQueue, &state);
+  if (strcmp(line, "motors on") == 0) {
+    if (!balanceImuReady()) {
+      Serial.println("MPU6050 missing; motors stay off");
+      return;
+    }
+    balanceSetMotorsEnabled(true);
+    digitalWrite(Pins::motorSleep, HIGH);
+    Serial.println("motors on — wheels should be off the desk");
+    return;
   }
-}
 
-void drawEye(Adafruit_GC9A01A &display, EyeState state) {
-  constexpr int16_t center = 120;
-  display.fillScreen(GC9A01A_BLACK);
-
-  switch (state) {
-    case EyeState::boot:
-      display.drawCircle(center, center, 58, GC9A01A_CYAN);
-      display.drawCircle(center, center, 59, GC9A01A_CYAN);
-      break;
-
-    case EyeState::awake:
-      display.fillCircle(center, center, 68, GC9A01A_WHITE);
-      display.fillCircle(center, center, 30, GC9A01A_CYAN);
-      display.fillCircle(center, center, 13, GC9A01A_BLACK);
-      display.fillCircle(center - 8, center - 8, 5, GC9A01A_WHITE);
-      break;
-
-    case EyeState::worried:
-      display.fillCircle(center, center + 12, 62, GC9A01A_WHITE);
-      display.fillCircle(center, center + 20, 25, GC9A01A_BLUE);
-      display.fillTriangle(55, 48, 185, 48, center, 86, GC9A01A_BLACK);
-      break;
-
-    case EyeState::sleeping:
-      display.drawLine(62, center, 178, center, GC9A01A_WHITE);
-      display.drawLine(70, center + 1, 170, center + 1, GC9A01A_WHITE);
-      break;
+  if (strncmp(line, "eyes ", 5) == 0) {
+    EyeState requested = EyeState::boot;
+    if (!uiParseEyeState(line + 5, &requested)) {
+      Serial.println("unknown eye state");
+      return;
+    }
+    uiSetEyeState(requested);
+    return;
   }
+
+  if (strcmp(line, "beep") == 0) {
+    audioBeep(1000, 200);
+    Serial.println("beep");
+    return;
+  }
+
+  if (strcmp(line, "listen on") == 0) {
+    listenerEnable(true);
+    return;
+  }
+  if (strcmp(line, "listen off") == 0) {
+    listenerEnable(false);
+    return;
+  }
+  if (strcmp(line, "head on") == 0) {
+    aimSetHeadServo(true);
+    return;
+  }
+  if (strcmp(line, "head off") == 0) {
+    aimSetHeadServo(false);
+    return;
+  }
+  if (strcmp(line, "wifi") == 0) {
+    char buf[96];
+    netFormatStatus(buf, sizeof(buf));
+    Serial.println(buf);
+    return;
+  }
+  if (strcmp(line, "status") == 0) {
+    char buf[96];
+    listenerFormatStatus(buf, sizeof(buf));
+    Serial.println(buf);
+    netFormatStatus(buf, sizeof(buf));
+    Serial.println(buf);
+    return;
+  }
+  if (strncmp(line, "volume ", 7) == 0) {
+    const float v = static_cast<float>(atof(line + 7));
+    audioSetVolume(v);
+    Serial.printf("volume %.2f\n", static_cast<double>(audioVolume()));
+    return;
+  }
+  if (strcmp(line, "mic") == 0) {
+    Serial.println("mic level 5s");
+    const uint32_t until = millis() + 5000;
+    while (millis() < until) {
+      Serial.printf("level=%d floor=%d\n", audioMicLevel(), listenerNoiseFloor());
+      vTaskDelay(pdMS_TO_TICKS(200));
+    }
+    return;
+  }
+  if (strcmp(line, "record") == 0) {
+    if (audioRecordTest(3000)) {
+      Serial.println("recording 3s...");
+      vTaskDelay(pdMS_TO_TICKS(3100));
+      Serial.println("record done");
+    } else {
+      Serial.println("record failed");
+    }
+    return;
+  }
+  if (strcmp(line, "play") == 0) {
+    Serial.println(audioPlayRecording() ? "play" : "nothing recorded");
+    return;
+  }
+
+  Serial.println("unknown command");
+  printHelp();
 }
 
-void balanceTask(void *) {
-  TickType_t wakeTime = xTaskGetTickCount();
-  PidController pid;
-  float filteredAngleDegrees = 0.0F;
-  uint32_t lastLogMs = 0;
+void pollSerial() {
+  static char line[48];
+  static size_t used = 0;
 
-  while (true) {
-    if (!imuReady) {
-      stopMotors();
-      vTaskDelayUntil(&wakeTime, pdMS_TO_TICKS(balancePeriodMs));
+  while (Serial.available() > 0) {
+    const char c = static_cast<char>(Serial.read());
+    if (c == '\r') {
       continue;
     }
-
-    sensors_event_t accel{};
-    sensors_event_t gyro{};
-    sensors_event_t temperature{};
-    imu.getEvent(&accel, &gyro, &temperature);
-
-    // This assumes the board balances around the Y gyro axis. Confirm the
-    // physical MPU6050 orientation before enabling motors.
-    const float accelAngleDegrees =
-        atan2f(accel.acceleration.x, accel.acceleration.z) * RAD_TO_DEG;
-    const float gyroRateDegrees = gyro.gyro.y * RAD_TO_DEG;
-    constexpr float dtSeconds = balancePeriodMs / 1000.0F;
-
-    filteredAngleDegrees =
-        0.98F * (filteredAngleDegrees + gyroRateDegrees * dtSeconds) +
-        0.02F * accelAngleDegrees;
-
-    if (fabsf(filteredAngleDegrees) > 35.0F) {
-      stopMotors();
-      setEyeState(EyeState::worried);
-    } else {
-      const int16_t command =
-          static_cast<int16_t>(constrain(pid.update(0.0F, filteredAngleDegrees,
-                                                    dtSeconds),
-                                         -255.0F, 255.0F));
-      writeMotor(Pins::motorLeftDirection, leftPwmChannel, command);
-      writeMotor(Pins::motorRightDirection, rightPwmChannel, command);
+    if (c != '\n') {
+      if (used + 1 < sizeof(line)) {
+        line[used++] = static_cast<char>(tolower(static_cast<unsigned char>(c)));
+      }
+      continue;
     }
-
-    if (millis() - lastLogMs >= 250) {
-      Serial.printf("angle=%.2f motors=%s\n", filteredAngleDegrees,
-                    motorOutputEnabled ? "ENABLED" : "disabled");
-      lastLogMs = millis();
-    }
-
-    vTaskDelayUntil(&wakeTime, pdMS_TO_TICKS(balancePeriodMs));
-  }
-}
-
-void uiTask(void *) {
-  pinMode(Pins::displayPowerEnable, OUTPUT);
-  digitalWrite(Pins::displayPowerEnable, HIGH);
-
-  // Never let both displays listen at once.
-  pinMode(Pins::displayLeftCs, OUTPUT);
-  pinMode(Pins::displayRightCs, OUTPUT);
-  digitalWrite(Pins::displayLeftCs, HIGH);
-  digitalWrite(Pins::displayRightCs, HIGH);
-
-  SPI.begin(Pins::spiClock, Pins::spiMiso, Pins::spiMosi);
-  leftEye.begin(40000000);
-  rightEye.begin(40000000);
-  leftEye.setRotation(0);
-  rightEye.setRotation(2);
-
-  EyeState current = EyeState::boot;
-  drawEye(leftEye, current);
-  drawEye(rightEye, current);
-
-  EyeState requested = EyeState::awake;
-  while (true) {
-    if (xQueueReceive(eyeStateQueue, &requested, pdMS_TO_TICKS(100)) ==
-            pdTRUE &&
-        requested != current) {
-      // Both calls use the same SPI peripheral. They are intentionally
-      // sequential and live in this one task, so CS ownership stays simple.
-      drawEye(leftEye, requested);
-      drawEye(rightEye, requested);
-      current = requested;
-    }
+    line[used] = '\0';
+    used = 0;
+    handleCommand(line);
   }
 }
 
 }  // namespace
 
 void setup() {
-  Serial.begin(serialBaud);
+  Serial.begin(kSerialBaud);
   delay(500);
   Serial.println("\nAstra Companion booting");
+  printHelp();
 
-  pinMode(Pins::motorSleep, OUTPUT);
-  digitalWrite(Pins::motorSleep, LOW);
-  pinMode(Pins::motorLeftDirection, OUTPUT);
-  pinMode(Pins::motorRightDirection, OUTPUT);
+  uiSetDisplayPower(true);
+  balanceInitMotors();
+  balanceStartImu();
 
-  ledcSetup(leftPwmChannel, motorPwmFrequency, motorPwmResolution);
-  ledcSetup(rightPwmChannel, motorPwmFrequency, motorPwmResolution);
-  ledcAttachPin(Pins::motorLeftPwm, leftPwmChannel);
-  ledcAttachPin(Pins::motorRightPwm, rightPwmChannel);
-  stopMotors();
+  uiStartTask();
+  balanceStartTask();
 
-  Wire.begin(Pins::i2cSda, Pins::i2cScl, 400000);
-  imuReady = imu.begin(0x68, &Wire);
-  if (imuReady) {
-    imu.setAccelerometerRange(MPU6050_RANGE_4_G);
-    imu.setGyroRange(MPU6050_RANGE_500_DEG);
-    imu.setFilterBandwidth(MPU6050_BAND_44_HZ);
-    Serial.println("MPU6050 found");
-  } else {
-    Serial.println("MPU6050 missing; motor output locked off");
+  if (!audioInit()) {
+    Serial.println("audio init failed");
   }
+  netInit();
+  aimInit();
 
-  eyeStateQueue = xQueueCreate(1, sizeof(EyeState));
-
-  xTaskCreatePinnedToCore(balanceTask, "balance", 4096, nullptr, 4, nullptr, 0);
-  xTaskCreatePinnedToCore(uiTask, "ui", 8192, nullptr, 2, nullptr, 1);
-
-  digitalWrite(Pins::motorSleep, motorOutputEnabled ? HIGH : LOW);
-  setEyeState(imuReady ? EyeState::awake : EyeState::worried);
+  uiSetEyeState(balanceImuReady() ? EyeState::awake : EyeState::worried);
 }
 
 void loop() {
-  // Arduino's loop task is unused. The work lives in the two pinned tasks.
-  vTaskDelay(portMAX_DELAY);
+  pollSerial();
+  audioPoll();
+  netPoll();
+  vTaskDelay(pdMS_TO_TICKS(20));
 }

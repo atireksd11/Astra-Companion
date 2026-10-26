@@ -11,6 +11,7 @@ constexpr gpio_num_t spiMiso = GPIO_NUM_47;
 constexpr gpio_num_t displayDc = GPIO_NUM_10;
 constexpr gpio_num_t displayLeftCs = GPIO_NUM_14;
 constexpr gpio_num_t displayRightCs = GPIO_NUM_15;
+// Active low. Q4 is a P-channel AO3401A with its gate pulled up by R20.
 constexpr gpio_num_t displayPowerEnable = GPIO_NUM_17;
 
 // The displays share the ESP32 reset net. They do not have a GPIO reset.
@@ -28,7 +29,7 @@ constexpr gpio_num_t motorRightDirection = GPIO_NUM_42;
 constexpr gpio_num_t motorRightPwm = GPIO_NUM_41;
 constexpr gpio_num_t motorSleep = GPIO_NUM_4;
 
-// Audio (not started by the current firmware)
+// Audio (I2S mic + amp; stereo when MK2 is wired)
 constexpr gpio_num_t i2sBitClock = GPIO_NUM_45;
 constexpr gpio_num_t i2sWordSelect = GPIO_NUM_48;
 constexpr gpio_num_t i2sMicData = GPIO_NUM_46;

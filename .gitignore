@@ -1,9 +1,26 @@
 # Secrets & environment
 .env
 .env.*
+!.env.example
 *.pem
 *.key
 credentials.json
+firmware/include/secrets.h
+server/config.json
+server/astra.db
+server/astra.db-journal
+server/astra.db-wal
+server/astra.db-shm
+server/astra.db.bak*
+server/_tmp*.db
+server/_dbg*.db
+server/.pytest_cache/
+server/data/
+server/cache/
+server/.venv/
+server/tools/_*.wav
+server/tools/*.wav
+!server/tools/doa-test.wav
 
 # Firmware / PlatformIO
 .pio/

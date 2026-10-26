@@ -15,7 +15,7 @@ single-display hand-written map.
 | `TFT2_CS` | 15 | DS2 CS |
 | `SPI_MISO` | 47 | microSD DAT0 |
 | `SD_CS` | 21 | microSD DAT3/CS |
-| `DISP_PWR_EN` | 17 | Q4 display-rail enable |
+| `DISP_PWR_EN` | 17 | Q4 gate. Active low: R20 pulls the gate to +3V3, so GPIO17 must go low to turn the displays on |
 
 Both displays share clock, MOSI, DC, power, and reset. Only chip select differs.
 The firmware must keep both CS lines high before starting SPI.
@@ -77,6 +77,8 @@ the second bridge input. Keep nSLEEP low until setup is complete.
 | `USB_D-` | 19 | Native USB D- |
 | `USB_D+` | 20 | Native USB D+ |
 | Boot | 0 | Boot button |
+
+`BTN_DOWN` is SW6, pulled up by R38 and shorted to ground when pressed. `BTN_UP` and `BTN_SELECT` reach the ESP32 through the USBLC6, but SW1 and SW3 are on different pins of that diode array, so those two switches do not currently land on GPIO1 or GPIO2.
 
 ## Power
 

@@ -36,7 +36,8 @@ Price and Link are blank on purpose.
 | 1 | J8 | testpoint | Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical |  |  |
 | 1 | J9 | Encoder_L | Connector:FanPinHeader_1x03_P2.54mm_Vertical |  |  |
 | 1 | Jd1 | Encoder_R | Connector:FanPinHeader_1x03_P2.54mm_Vertical |  |  |
-| 1 | MK1 | INMP441ACEZ-R7 | Connector_PinHeader_2.54mm:PinHeader_1x05_P2.54mm_Vertical |  |  |
+| 1 | MK1 | INMP441ACEZ-R7 | Connector_PinHeader_2.54mm:PinHeader_1x05_P2.54mm_Vertical |  | L/R to GND (left ear) |
+| 1 | MK2 | INMP441 (harness, not on PCB) | — |  | Feature 3 DOA. Share BCLK GPIO45, WS GPIO48, SD GPIO46 with MK1. L/R to 3.3 V (right ear). Space mic centers ~40 mm. Add 100 kΩ SD-to-GND if the shared data line floats. |
 | 1 | Q4 | AO3401A | Package_TO_SOT_SMD:SOT-23 |  |  |
 | 14 | R1, R9, R12, R13, R14, R15, R16, R17, R18, R19, R20, R29, R30, R32 | 10k | Resistor_SMD:R_0805_2012Metric |  |  |
 | 2 | R4, R5 | 5.1K | Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal |  |  |

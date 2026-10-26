@@ -1,0 +1,153 @@
+{
+  "host": "127.0.0.1",
+  "port": 8765,
+  "pipeline_step_timeout_s": 120,
+  "security": {
+    "auth_token": "",
+    "require_auth": false,
+    "max_connections": 8
+  },
+  "health": {
+    "enabled": false,
+    "port": 0
+  },
+  "vision": {
+    "enabled": false,
+    "provider": "groq",
+    "max_bytes": 400000
+  },
+  "robot": {
+    "enabled": true,
+    "require_owner": true
+  },
+  "proto": 1,
+  "limits": {
+    "max_clip_s": 60,
+    "max_reply_s": 10,
+    "min_clip_s": 0.4,
+    "min_speech_s": 0.25,
+    "min_speech_ratio": 0.15,
+    "end_silence_ms": 2000,
+    "max_text_chars": 500,
+    "max_reply_chars": 400,
+    "merge_gap_ms": 2000
+  },
+  "daily_cost_cap_usd": 5.0,
+  "steps": ["antispoof", "denoise", "focus", "stt", "safety_in", "mood", "cadence", "pronunciation", "context_retrieve", "research", "llm", "intent", "safety_out", "memory_persist", "tts"],
+  "memory": {"enabled": true, "use_mem0": false},
+  "research": {"enabled": true, "timeout_s": 1.5},
+  "listen": {"fallback_end_silence_ms": 4500},
+  "antispoof": {
+    "enabled": true,
+    "backend": "aasist_l",
+    "weights": "models/AASIST-L.pth",
+    "soft": 0.8,
+    "hard": 1.0,
+    "echo_corr": 0.55,
+    "echo_cosine": 0.9,
+    "raise_verify": 0.08
+  },
+  "denoise": {
+    "enabled": false,
+    "backend": "rnnoise",
+    "strength": 0.5
+  },
+  "vad": {
+    "site": "client",
+    "backend": "silero",
+    "frame_ms": 32,
+    "threshold": 0.5,
+    "min_speech_ms": 280
+  },
+  "stt": {
+    "enabled": false,
+    "model": "tiny",
+    "device": "cpu",
+    "compute_type": "int8",
+    "language": "en",
+    "auto_language": false,
+    "min_language_prob": 0.5,
+    "beam_size": 1,
+    "vad_filter": false
+  },
+  "store_audio_days": 0,
+  "doa": {
+    "baseline_m": 0.04,
+    "offset_deg": 0.0,
+    "min_confidence": 0.20
+  },
+  "focus": {
+    "enabled": false,
+    "wake_phrase": "hey astra",
+    "wake_model": "hey_jarvis",
+    "wake_threshold": 0.5,
+    "session_timeout_s": 90,
+    "embedding": "ecapa",
+    "ecapa_source": "speechbrain/spkrec-ecapa-voxceleb",
+    "min_similarity": 0.40,
+    "min_enroll_s": 3.0,
+    "wake_min_speech_ms": 500,
+    "lock_owner": true,
+    "owner_speaker_id": "",
+    "require_owner_enroll": true,
+    "enroll_min_clips": 4,
+    "verify_min_mean": 0.45,
+    "verify_min_best_clip": 0.5,
+    "min_gain": 0.45,
+    "max_gain": 1.8,
+    "firmware_volume_cap": 0.55,
+    "azimuth_gate_deg": 35
+  },
+  "mood": {
+    "enabled": true,
+    "backend": "wav2vec2_ser_int8",
+    "weights": "models/speech_emotion_int8.onnx",
+    "min_confidence": 0.70,
+    "min_margin": 0.15,
+    "ema_alpha": 0.10,
+    "max_seconds": 6.0,
+    "score_non_en": true,
+    "learn_non_en": false,
+    "non_en_min_confidence": 0.85
+  },
+  "cadence": {
+    "enabled": false,
+    "min_pause_ms": 200,
+    "fillers": ["uh", "um", "er"]
+  },
+  "pronunciation": {
+    "enabled": false,
+    "aligner": "none",
+    "aligner_url": "",
+    "aligner_timeout_s": 8.0,
+    "min_phone_confidence": 0.5,
+    "model": "charsiu/en_w2v2_ctc_libris_and_cv",
+    "tokenizer": "charsiu/tokenizer_en_cmu",
+    "min_word_confidence": 0.85,
+    "promote_count": 5
+  },
+  "profile": {
+    "sync_url": "",
+    "sync_timeout_s": 2.0,
+    "match_min_similarity": 0.72
+  },
+  "safety": {
+    "moderation": "off"
+  },
+  "llm": {
+    "enabled": true,
+    "provider": "groq",
+    "temperature": 0.6,
+    "max_completion_tokens": 256,
+    "reserve_usd": 0.00012
+  },
+  "tts": {
+    "enabled": true,
+    "backend": "piper",
+    "voice": "en_US-lessac-medium",
+    "length_scale": 1.0,
+    "weights": "models/en_US-lessac-medium.onnx",
+    "voices": {},
+    "fallback_lang": "en"
+  }
+}

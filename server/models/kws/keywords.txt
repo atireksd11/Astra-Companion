@@ -1,0 +1,3 @@
+▁HE Y ▁AS T RA :2.0 #0.05
+▁HE Y ▁AS ▁TRA :2.0 #0.1
+▁HE Y AS T RA :2.0 #0.1
