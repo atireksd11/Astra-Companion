@@ -1,6 +1,6 @@
 # Astra Companion
 
-This repo is the **Week 1** board: a carrier PCB for an ESP32-S3 DevKit that powers a small two wheeled desk robot with round eyes, a mic, a speaker, and motor drivers. It is my Hack Club Half Life / OnBoard project. The plastic body and mechanical parts live in a separate repo ([Astra-Companion-Cad](https://github.com/atireksd11/Astra-Companion-Cad)); this one is KiCad, BOM, and firmware for the PCB.
+This repo holds the carrier PCB, the voice stack on the laptop, and notes for building Astra. Week 1 was the KiCad board. This week we are finishing the **audio module** on the printed body: a side speaker box, a neck that can pan, and a clean path for wires through the pivot. The plastic lives in [Astra-Companion-Cad](https://github.com/atireksd11/Astra-Companion-Cad). Mic and amp are still on the PCB (INMP441 and MAX98357A).
 
 The board is built around a **ESP32-S3-DEVKITC-1** so the expensive module can stay on headers. If the first spin has a dumb mistake, I can swap the DevKit without rebuying everything.
 
@@ -19,6 +19,38 @@ MPU-6050 for balance, DRV8833 for two N20 channels, TP4056 + MT3608 + AP2112K fo
 ![PCB render](docs/images/pcb-render.png)
 
 Open the project in KiCad 10: [hardware/astracompanion/](hardware/astracompanion/). Parts list for grants: [hardware/bom.csv](hardware/bom.csv). Notes on cost tiers: [hardware/BOM_SUMMARY.md](hardware/BOM_SUMMARY.md). When routing is done, plot Gerbers into [hardware/src/](hardware/src/).
+
+## This week: audio module and neck
+
+The CAD shows how the speaker panel bolts to the side of the torso, how the driver sits behind the grille, and how the head stack sits on bearings so it can turn without chewing up PETG.
+
+**Parts we ordered ($27.94 before tax and shipping)**
+
+| Part | Qty | Unit | Total | Where |
+|------|-----|------|-------|-------|
+| PGN 608-ZZ ball bearings, 10 pack (8 by 22 by 7 mm) | 1 pack | $12.95 | $12.95 | Amazon.ca |
+| MG90S metal gear micro servo, 2 pack | 1 pack | $14.99 | $14.99 | Amazon.ca |
+| Tax and shipping | | | about $5 | Prime / domestic |
+
+The bearing pack gives you spares after you use two on the neck. The MG90S pack gives you one pan servo and one spare (or a future tilt). Full writeup and grant CSV: [hardware/BOM_AUDIO_MODULE.md](hardware/BOM_AUDIO_MODULE.md) and [hardware/bom-audio-module.csv](hardware/bom-audio-module.csv).
+
+Exploded view of the head, speaker side panel, and neck stack:
+
+![Audio module exploded](docs/images/audio-module-exploded.png)
+
+Rear view with the vented speaker box on the body:
+
+![Audio module rear](docs/images/audio-module-rear.png)
+
+Inside the torso showing the speaker and board bay:
+
+![Audio module internal](docs/images/audio-module-internal.png)
+
+Side panel, gasket plates, and speaker mount detail:
+
+![Audio module side detail](docs/images/audio-module-side-detail.png)
+
+Voice on the laptop (wake word, STT, TTS) is documented under [docs/VOICE_SETUP.md](docs/VOICE_SETUP.md) and [server/README.md](server/README.md). The robot firmware streams audio to that bridge when you are ready to test on hardware.
 
 ## Firmware
 
