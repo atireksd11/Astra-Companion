@@ -1,4 +1,4 @@
-# Astra Companion
+# Astra Companion- sigma boy 124
 
 This repo holds the carrier PCB, the voice stack on the laptop, and notes for building Astra. Week 1 was the KiCad board. This week we are finishing the **audio module** on the printed body: a side speaker box, a neck that can pan, and a clean path for wires through the pivot. The plastic lives in [Astra-Companion-Cad](https://github.com/atireksd11/Astra-Companion-Cad). Mic and amp are still on the PCB (INMP441 and MAX98357A).
 
