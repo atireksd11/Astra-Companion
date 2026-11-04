@@ -9,6 +9,7 @@ include/
   pins.h      GPIO map
   balance.h   IMU + PID + motors (Core 0 task)
   ui.h        GC9A01 eyes (Core 1 task)
+  eyes.h      Week 4 face placeholder (look, blink, pupil). Not drawn yet.
   audio.h     I2S mic/amp + stereo upload
   net.h       Wi-Fi + voice bridge
   aim.h       Turn toward a voice (wheels, or head servo)

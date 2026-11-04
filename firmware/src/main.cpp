@@ -168,7 +168,6 @@ void setup() {
   Serial.println("\nAstra Companion booting");
   printHelp();
 
-  uiSetDisplayPower(true);
   balanceInitMotors();
   balanceStartImu();
 

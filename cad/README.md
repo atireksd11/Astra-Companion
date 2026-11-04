@@ -7,3 +7,5 @@
 Open in Fusion 360, FreeCAD, or Onshape. Week 2 Half Life repo copy: [Astra-Companion-Cad](https://github.com/atireksd11/Astra-Companion-Cad).
 
 Renders live in [`docs/images/`](../docs/images/).
+
+Week 4 eye plastic (empty until the model exists): [`eyes/`](eyes/).

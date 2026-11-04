@@ -1,6 +1,6 @@
 # Chassis and CAD (Half Life Week 2)
 
-Mechanical side of Astra Companion: PETG shells, N20 drive, rear caster, and hardware to bolt the carrier PCB in. Fusion source export: [`cad/astra-companion-chassis-assembly.step`](../cad/astra-companion-chassis-assembly.step).
+Mechanical side of Astra Companion: PETG shells, N20 drive, rear caster, and hardware to bolt the carrier PCB in. Week 4 eye bezels and mounts are mapped in [`WEEK4_EYES.md`](WEEK4_EYES.md) and [`../cad/eyes/`](../cad/eyes/). Fusion source export: [`cad/astra-companion-chassis-assembly.step`](../cad/astra-companion-chassis-assembly.step).
 
 Half Life **Tier 1** (~**$30**, **6 hours**) uses **`hardware/bom-cad.csv`**, not the PCB `bom.csv`.
 

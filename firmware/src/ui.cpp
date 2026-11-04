@@ -1,5 +1,7 @@
 #include "ui.h"
 
+#include "eye_config.h"
+#include "eyes.h"
 #include "pins.h"
 
 #include <Adafruit_GC9A01A.h>
@@ -87,30 +89,47 @@ void pollButtons(EyeState *latched) {
 void uiTask(void *) {
   pinMode(Pins::displayLeftCs, OUTPUT);
   pinMode(Pins::displayRightCs, OUTPUT);
+  pinMode(Pins::sdChipSelect, OUTPUT);
   digitalWrite(Pins::displayLeftCs, HIGH);
   digitalWrite(Pins::displayRightCs, HIGH);
+  digitalWrite(Pins::sdChipSelect, HIGH);
   pinMode(Pins::buttonUp, INPUT_PULLUP);
   pinMode(Pins::buttonSelect, INPUT_PULLUP);
   pinMode(Pins::buttonDown, INPUT_PULLUP);
 
-  SPI.begin(Pins::spiClock, Pins::spiMiso, Pins::spiMosi);
-  leftEye.begin(40000000);
-  rightEye.begin(40000000);
-  leftEye.setRotation(0);
-  rightEye.setRotation(2);
-  Serial.println("displays started");
+  uiSetDisplayPower(true);
+  vTaskDelay(pdMS_TO_TICKS(kEyePowerSettleMs));
+
+  const EyePanels panels = eyesInit();
+  const bool lovyan = panels.left || panels.right;
+  if (!lovyan) {
+    SPI.begin(Pins::spiClock, Pins::spiMiso, Pins::spiMosi);
+    leftEye.begin(kEyeSpiHz);
+    rightEye.begin(kEyeSpiHz);
+    leftEye.setRotation(0);
+    rightEye.setRotation(2);
+    Serial.println("displays started");
+  }
 
   EyeState current = EyeState::boot;
-  drawEye(leftEye, current);
-  drawEye(rightEye, current);
+  if (lovyan) {
+    eyesShow(current);
+  } else {
+    drawEye(leftEye, current);
+    drawEye(rightEye, current);
+  }
 
   EyeState requested = current;
   while (true) {
     pollButtons(&requested);
     if (xQueueReceive(eyeStateQueue, &requested, pdMS_TO_TICKS(50)) == pdTRUE &&
         requested != current) {
-      drawEye(leftEye, requested);
-      drawEye(rightEye, requested);
+      if (eyesDriveGlass()) {
+        eyesShow(requested);
+      } else {
+        drawEye(leftEye, requested);
+        drawEye(rightEye, requested);
+      }
       current = requested;
       Serial.printf("eyes %s\n", eyeName(current));
     }
@@ -126,7 +145,7 @@ void uiSetDisplayPower(bool on) {
 
 void uiStartTask() {
   eyeStateQueue = xQueueCreate(1, sizeof(EyeState));
-  xTaskCreatePinnedToCore(uiTask, "ui", 8192, nullptr, 2, nullptr, 1);
+  xTaskCreatePinnedToCore(uiTask, "ui", kUiTaskStackBytes, nullptr, 2, nullptr, 1);
 }
 
 void uiSetEyeState(EyeState state) {
